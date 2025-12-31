@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti, Idania ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Overlays para mejor legibilidad */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .slide > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Backgrounds específicos */
+        .bg-gradient-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .bg-gradient-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .bg-gradient-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .bg-gradient-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .bg-gradient-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .bg-gradient-6 { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        .bg-gradient-7 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .bg-gradient-8 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+
+        .bg-image {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5em;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            animation: fadeInDown 1s ease-out;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: 700;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content {
+            font-size: 1.5em;
+            line-height: 2;
+            max-width: 1000px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .content-large {
+            font-size: 1.8em;
+            line-height: 1.8;
+            max-width: 900px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content li, .content-large li {
+            margin: 25px 0;
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .content li:hover, .content-large li:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .content li:nth-child(1) { animation-delay: 0.2s; }
+        .content li:nth-child(2) { animation-delay: 0.4s; }
+        .content li:nth-child(3) { animation-delay: 0.6s; }
+        .content li:nth-child(4) { animation-delay: 0.8s; }
+        .content li:nth-child(5) { animation-delay: 1s; }
+        .content li:nth-child(6) { animation-delay: 1.2s; }
+        .content li:nth-child(7) { animation-delay: 1.4s; }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .heart {
+            font-size: 3em;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+            color: #ff6b9d;
+            filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.5));
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+        }
+
+        /* Photo Gallery Styles */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin-top: 30px;
+        }
+
+        .photo-item {
+            width: 100%;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .photo-item:nth-child(1) { animation-delay: 0.2s; }
+        .photo-item:nth-child(2) { animation-delay: 0.4s; }
+        .photo-item:nth-child(3) { animation-delay: 0.6s; }
+        .photo-item:nth-child(4) { animation-delay: 0.8s; }
+        .photo-item:nth-child(5) { animation-delay: 1s; }
+        .photo-item:nth-child(6) { animation-delay: 1.2s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin: 30px 0;
+            animation: slideInLeft 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            flex: 1;
+            text-align: left;
+        }
+
+        .timeline-date {
+            font-size: 1.1em;
+            color: #ffd700;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            padding: 18px 35px;
+            font-size: 1.2em;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+            border-color: white;
+        }
+
+        button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            font-size: 1.3em;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+        }
+
+        /* Particles background */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Special Effects */
+        .emphasis {
+            color: #ffd700;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            font-style: italic;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .text-block {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 20px 0;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9em;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3em; }
+            h2 { font-size: 2.5em; }
+            .content { font-size: 1.2em; }
+            .photo-gallery { grid-template-columns: repeat(2, 1fr); }
+            .slide { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="presentation">
+        <!-- Slide 1: Portada -->
+        <div class="slide active bg-gradient-1">
+            <h1>Para Idania <span class="heart">❤️</span></h1>
+            <p class="subtitle">Una carta de amor desde el corazón</p>
+            <div class="scroll-indicator">Presiona → para continuar</div>
+        </div>
+
+        <!-- Slide 2: Disculpa sincera -->
+        <div class="slide bg-image" style="background-image: url('images/special_1.png');">
+            <h2>Perdóname 💔</h2>
+            <div class="content-large">
+                <div class="text-block">
+                    <p style="font-size: 1.4em; margin-bottom: 20px;">
+                        Sé que he cometido errores que te han lastimado, y quiero que sepas que lo siento profundamente.
+                    </p>
+                    <p style="font-size: 1.2em;">
+                        No hay excusas para mis equivocaciones. Solo quiero que sepas que reconozco mis fallos
+                        y estoy comprometido a ser mejor, a aprender de esto y a nunca volver a hacerte sentir así.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Reflexión -->
+        <div class="slide bg-gradient-2">
+            <h2>Lo que he aprendido ✨</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="emphasis">Valorarte más:</span> Cada día contigo es un regalo que no debo dar por sentado</li>
+                    <li><span class="emphasis">Escucharte mejor:</span> Tus palabras, tus sentimientos, todo merece mi total atención</li>
+                    <li><span class="emphasis">Comunicarme:</span> Hablar contigo abiertamente, sin miedo, con honestidad</li>
+                    <li><span class="emphasis">Apreciarte:</span> Celebrar quién eres y todo lo maravilloso que traes a mi vida</li>
+                    <li><span class="emphasis">Crecer juntos:</span> Ser mejor persona porque tú me inspiras a serlo</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4: Lo que amo de ti - Parte 1 -->
+        <div class="slide bg-gradient-3">
+            <h2>Lo que amo de ti 💖</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="emphasis">Tu sonrisa:</span> Ilumina hasta los días más grises y hace que todo tenga sentido</li>
+                    <li><span class="emphasis">Tu risa:</span> Es la melodía más hermosa que existe, y haría cualquier cosa por escucharla</li>
+                    <li><span class="emphasis">Tu mirada:</span> Cuando me miras, siento que soy la única persona en el mundo</li>
+                    <li><span class="emphasis">Tu forma de ser:</span> Auténtica, única, sin pretensiones. Eres real y eso es extraordinario</li>
+                    <li><span class="emphasis">Tu presencia:</span> Simplemente estar cerca de ti hace que todo sea mejor</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Lo que amo de ti - Parte 2 -->
+        <div class="slide bg-gradient-4">
+            <h2>Más cosas que amo de ti 🌟</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="emphasis">Tu voz:</span> Me encanta escucharte hablar de tus sueños, tus ideas, tu día</li>
+                    <li><span class="emphasis">Tu forma de pensar:</span> Tu mente brillante me fascina y me hace ver el mundo diferente</li>
+                    <li><span class="emphasis">Tus pequeños gestos:</span> Los detalles que tienes, la manera en que cuidas lo que amas</li>
+                    <li><span class="emphasis">Tu pasión:</span> Cuando hablas de lo que te importa, tus ojos brillan de una manera especial</li>
+                    <li><span class="emphasis">Tu esencia:</span> Esa magia indescriptible que hace que seas TÚ</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6: Tus cualidades -->
+        <div class="slide bg-gradient-5">
+            <h2>Tus cualidades extraordinarias ⭐</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="emphasis">Inteligente:</span> Tu mente es brillante, perspicaz, y siempre me sorprendes</li>
+                    <li><span class="emphasis">Fuerte:</span> Admiro tu fortaleza, tu resiliencia ante los desafíos</li>
+                    <li><span class="emphasis">Compasiva:</span> Tu corazón enorme y tu empatía hacia los demás</li>
+                    <li><span class="emphasis">Talentosa:</span> Todo lo que haces lo haces con excelencia y dedicación</li>
+                    <li><span class="emphasis">Única:</span> No hay nadie en el mundo como tú, y eso es tu mayor regalo</li>
+                    <li><span class="emphasis">Hermosa:</span> Por dentro y por fuera, una belleza que va más allá de lo físico</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 7: Nuestros momentos - Timeline -->
+        <div class="slide bg-gradient-6">
+            <h2>Nuestros momentos especiales 📸</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Septiembre - Octubre 2025</div>
+                        <div class="timeline-title">Mataró y Barcelona</div>
+                        <div class="timeline-description">
+                            Esos días mágicos juntos, descubriendo rincones, creando recuerdos que guardaré por siempre
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Diciembre 2025</div>
+                        <div class="timeline-title">Bruselas</div>
+                        <div class="timeline-description">
+                            La ciudad cobró vida contigo a mi lado. Cada calle, cada momento, más especial porque estabas tú
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Diciembre 2025</div>
+                        <div class="timeline-title">Brujas</div>
+                        <div class="timeline-description">
+                            Como en un cuento de hadas. La ciudad más romántica del mundo fue perfecta porque la viví contigo
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Diciembre 2025</div>
+                        <div class="timeline-title">Gante</div>
+                        <div class="timeline-description">
+                            Cada momento juntos es un tesoro. Estas aventuras son las que hacen que la vida valga la pena
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Galería - Mataró -->
+        <div class="slide bg-gradient-7">
+            <h2>Recuerdos de Mataró 🌊</h2>
+            <div class="photo-gallery">
+                <div class="photo-item">
+                    <img src="images/IMG_5664.jpg" alt="Mataró">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_6234.jpg" alt="Mataró">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_6322.jpg" alt="Mataró">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_6363.jpg" alt="Mataró">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_6571.jpg" alt="Mataró">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_6683.jpg" alt="Mataró">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Galería - Barcelona -->
+        <div class="slide bg-gradient-8">
+            <h2>Recuerdos de Barcelona 🏛️</h2>
+            <div class="photo-gallery">
+                <div class="photo-item">
+                    <img src="images/IMG_5718.jpg" alt="Barcelona">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_5787.jpg" alt="Barcelona">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_5904.jpg" alt="Barcelona">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_6028.jpg" alt="Barcelona">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_5703.jpg" alt="Barcelona">
+                </div>
+                <div class="photo-item">
+                    <img src="images/hibiscus.webp" alt="Flores">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Galería - Bélgica -->
+        <div class="slide bg-gradient-1">
+            <h2>Recuerdos de Bélgica 🇧🇪</h2>
+            <div class="photo-gallery">
+                <div class="photo-item">
+                    <img src="images/IMG_7294.jpg" alt="Bruselas">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_7558.jpg" alt="Brujas">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_7606.jpg" alt="Brujas">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_7936.jpg" alt="Gante">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_8182.jpg" alt="Gante">
+                </div>
+                <div class="photo-item">
+                    <img src="images/IMG_8425.jpg" alt="Gante">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Por qué eres especial -->
+        <div class="slide bg-gradient-2">
+            <h2>Por qué eres tan especial 💝</h2>
+            <div class="content">
+                <ul>
+                    <li>Me haces querer ser una mejor persona cada día</li>
+                    <li>Contigo descubrí lo que significa amar de verdad</li>
+                    <li>Haces que los momentos ordinarios sean extraordinarios</li>
+                    <li>Eres mi paz en medio del caos, mi luz en la oscuridad</li>
+                    <li>Me haces creer en la magia, en lo imposible, en los sueños</li>
+                    <li>Eres mi lugar favorito en el mundo, mi hogar</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Mis promesas -->
+        <div class="slide bg-gradient-3">
+            <h2>Mis promesas para ti 🤝</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="emphasis">Valorarte:</span> Cada día, cada momento, nunca darte por sentado</li>
+                    <li><span class="emphasis">Escucharte:</span> Con atención, con el corazón, siempre</li>
+                    <li><span class="emphasis">Apoyarte:</span> En tus sueños, tus metas, tus desafíos</li>
+                    <li><span class="emphasis">Respetarte:</span> Tus decisiones, tus sentimientos, tu espacio</li>
+                    <li><span class="emphasis">Crecer contigo:</span> Aprender, evolucionar, ser mejor juntos</li>
+                    <li><span class="emphasis">Amarte:</span> Incondicionalmente, profundamente, eternamente</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 13: Agradecimiento -->
+        <div class="slide bg-gradient-4">
+            <h2>Gracias por... 🙏</h2>
+            <div class="content">
+                <ul>
+                    <li>Ser parte de mi vida y permitirme ser parte de la tuya</li>
+                    <li>Enseñarme lo que significa amar y ser amado</li>
+                    <li>Ser paciente conmigo y darme oportunidades de mejorar</li>
+                    <li>Compartir tus sueños, tus miedos, tu mundo conmigo</li>
+                    <li>Hacer que cada día sea una aventura nueva</li>
+                    <li>Ser tú misma, siempre auténtica, siempre real</li>
+                    <li>Existir y hacer de este mundo un lugar mejor</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 14: Lo que quiero para nosotros -->
+        <div class="slide bg-gradient-5">
+            <h2>Lo que quiero para nosotros 🌈</h2>
+            <div class="content-large">
+                <div class="text-block">
+                    <p style="font-size: 1.3em; margin-bottom: 20px;">
+                        <span class="emphasis">Más aventuras</span> por descubrir juntos
+                    </p>
+                    <p style="font-size: 1.3em; margin-bottom: 20px;">
+                        <span class="emphasis">Más risas</span> que llenen nuestros días
+                    </p>
+                    <p style="font-size: 1.3em; margin-bottom: 20px;">
+                        <span class="emphasis">Más momentos</span> que se conviertan en recuerdos inolvidables
+                    </p>
+                    <p style="font-size: 1.3em; margin-bottom: 20px;">
+                        <span class="emphasis">Más amor</span> cada día que pasa
+                    </p>
+                    <p style="font-size: 1.3em;">
+                        <span class="emphasis">Un futuro</span> donde tú y yo sigamos creciendo juntos
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Final -->
+        <div class="slide bg-image" style="background-image: url('images/special_2.png');">
+            <h1>Eres increíble, Idania</h1>
+            <div class="content-large">
+                <p style="font-size: 2.5em; margin: 40px 0;">
+                    <span class="heart">❤️</span>
+                </p>
+                <div class="text-block">
+                    <p style="font-size: 1.6em; margin-bottom: 25px;">
+                        No hay palabras suficientes para expresar lo mucho que significas para mí
+                    </p>
+                    <p style="font-size: 1.4em; margin-bottom: 25px;">
+                        Eres la persona más especial que he conocido
+                    </p>
+                    <p style="font-size: 1.6em; font-style: italic; color: #ffd700;">
+                        Gracias por ser quien eres
+                    </p>
+                </div>
+                <p style="font-size: 1.5em; margin-top: 40px; font-style: italic;">
+                    Con todo mi amor, siempre
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current">1</span> / <span id="total">15</span>
+    </div>
+
+    <div class="navigation">
+        <button id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        // Crear partículas flotantes
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            if (n >= totalSlides) {
+                currentSlide = totalSlides - 1;
+            } else if (n < 0) {
+                currentSlide = 0;
+            } else {
+                currentSlide = n;
+            }
+
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current').textContent = currentSlide + 1;
+
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+        });
+
+        // Swipe en móvil
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                changeSlide(1);
+            }
+            if (touchEndX > touchStartX + 50) {
+                changeSlide(-1);
+            }
+        }
+
+        showSlide(0);
+    </script>
+</body>
+</html>

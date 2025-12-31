@@ -24,6 +24,7 @@ ENV/
 
 # Build outputs
 *.html
+!docs/**/*.html
 gallery_output.html
 
 # Image files (uncomment if you want to ignore images)
