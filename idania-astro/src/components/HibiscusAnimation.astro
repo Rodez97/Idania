@@ -1,0 +1,327 @@
+---
+// Componente de animación de Hibiscus
+---
+
+<div class="animation-wrapper">
+    <svg viewBox="0 0 400 500" class="hibiscus-svg">
+        <defs>
+            <!-- Gradientes -->
+            <radialGradient id="petal">
+                <stop offset="0%" stop-color="#ff69b4"/>
+                <stop offset="50%" stop-color="#ff1493"/>
+                <stop offset="100%" stop-color="#c71585"/>
+            </radialGradient>
+            <radialGradient id="center">
+                <stop offset="0%" stop-color="#ffd700"/>
+                <stop offset="100%" stop-color="#ff8c00"/>
+            </radialGradient>
+            <linearGradient id="stem" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#228b22"/>
+                <stop offset="100%" stop-color="#006400"/>
+            </linearGradient>
+        </defs>
+
+        <!-- Tallo -->
+        <path id="stem" d="M200,500 Q195,400 200,300"
+              stroke="url(#stem)"
+              stroke-width="8"
+              fill="none"
+              stroke-linecap="round"/>
+
+        <!-- Flor centrada -->
+        <g transform="translate(200, 300)">
+            <!-- Pétalos -->
+            <g id="petals">
+                <ellipse class="petal" cx="0" cy="-60" rx="30" ry="70" fill="url(#petal)" opacity="0"/>
+                <ellipse class="petal" cx="57" cy="-18" rx="30" ry="70" fill="url(#petal)" opacity="0" transform="rotate(72 0 0)"/>
+                <ellipse class="petal" cx="35" cy="48" rx="30" ry="70" fill="url(#petal)" opacity="0" transform="rotate(144 0 0)"/>
+                <ellipse class="petal" cx="-35" cy="48" rx="30" ry="70" fill="url(#petal)" opacity="0" transform="rotate(216 0 0)"/>
+                <ellipse class="petal" cx="-57" cy="-18" rx="30" ry="70" fill="url(#petal)" opacity="0" transform="rotate(288 0 0)"/>
+            </g>
+
+            <!-- Centro -->
+            <circle id="flowerCenter" cx="0" cy="0" r="25" fill="url(#center)" opacity="0"/>
+
+            <!-- Pistilo -->
+            <g id="pistil" opacity="0">
+                <rect x="-3" y="-80" width="6" height="80" fill="#dc143c" rx="3"/>
+                <circle cx="0" cy="-85" r="8" fill="#b22222"/>
+                <circle cx="-6" cy="-90" r="6" fill="#8b0000"/>
+                <circle cx="6" cy="-90" r="6" fill="#8b0000"/>
+            </g>
+        </g>
+    </svg>
+
+    <!-- Formulario de login -->
+    <div class="login-form" style="display: none;">
+        <h2>Descifra el Acceso</h2>
+        <p class="subtitle">Resuelve los acertijos para continuar</p>
+
+        <div class="riddle">
+            <label>Acertijo del Usuario:</label>
+            <p class="riddle-text">
+                "No soy niña ni mujer completa,<br/>
+                soy juvenil y pequeña con ternura.<br/>
+                En diminutivo dulce me encontrarás,<br/>
+                con alegría y juventud en mi figura."
+            </p>
+            <input type="text" id="username" placeholder="¿Quién soy?">
+        </div>
+
+        <div class="riddle">
+            <label>Acertijo de la Contraseña:</label>
+            <p class="riddle-text">
+                "Cinco letras que describen belleza,<br/>
+                comienzo con 'L' y termino en 'A'.<br/>
+                Hermosa, bella, preciosa... más simple,<br/>
+                soy el elogio que directo está."
+            </p>
+            <input type="password" id="password" placeholder="¿Qué palabra soy?">
+        </div>
+
+        <div class="error" style="display: none;"></div>
+        <button id="loginBtn">Entrar</button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+    // Esperar a que el DOM esté listo
+    const initAnimation = () => {
+        // Animar el tallo
+        gsap.from('#stem', {
+            strokeDasharray: 200,
+            strokeDashoffset: 200,
+            duration: 1.5,
+            ease: 'power2.out'
+        });
+
+        // Animar pétalos uno por uno
+        gsap.to('.petal', {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            delay: 1.5,
+            ease: 'back.out(1.7)'
+        });
+
+        // Animar centro
+        gsap.to('#flowerCenter', {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            delay: 3,
+            ease: 'elastic.out(1, 0.5)'
+        });
+
+        // Animar pistilo
+        gsap.to('#pistil', {
+            opacity: 1,
+            scaleY: 1,
+            transformOrigin: 'bottom',
+            duration: 1,
+            delay: 3.5,
+            ease: 'power2.out'
+        });
+
+        // Mostrar login después de la animación
+        setTimeout(() => {
+            const svg = document.querySelector('.hibiscus-svg');
+            const loginForm = document.querySelector('.login-form');
+
+            gsap.to(svg, {
+                scale: 0.6,
+                y: -100,
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+
+            setTimeout(() => {
+                loginForm.style.display = 'block';
+                gsap.from(loginForm, {
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+            }, 500);
+        }, 5000);
+    };
+
+    // Login handler
+    const handleLogin = () => {
+        const username = document.getElementById('username').value.toLowerCase().trim();
+        const password = document.getElementById('password').value.toLowerCase().trim();
+        const error = document.querySelector('.error');
+
+        if (username === 'muchachita' && password === 'linda') {
+            error.style.display = 'none';
+            const wrapper = document.querySelector('.animation-wrapper');
+            const mainContent = document.getElementById('mainContent');
+
+            gsap.to(wrapper, {
+                opacity: 0,
+                duration: 1,
+                onComplete: () => {
+                    wrapper.style.display = 'none';
+                    if (mainContent) {
+                        mainContent.style.display = 'block';
+                        gsap.fromTo(mainContent,
+                            { opacity: 0 },
+                            { opacity: 1, duration: 1 }
+                        );
+                    }
+                }
+            });
+        } else {
+            error.textContent = 'Respuestas incorrectas. Piensa en los acertijos...';
+            error.style.display = 'block';
+
+            const loginForm = document.querySelector('.login-form');
+            gsap.to(loginForm, {
+                x: [-10, 10, -10, 10, 0],
+                duration: 0.5
+            });
+        }
+    };
+
+    // Inicializar cuando el componente esté montado
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAnimation);
+    } else {
+        initAnimation();
+    }
+
+    // Event listener para el botón
+    document.getElementById('loginBtn')?.addEventListener('click', handleLogin);
+    document.getElementById('password')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleLogin();
+    });
+</script>
+
+<style>
+    .animation-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 50%, #0d2035 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .hibiscus-svg {
+        width: 400px;
+        height: 500px;
+        filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.5));
+    }
+
+    #stem {
+        stroke-dasharray: 200;
+        stroke-dashoffset: 200;
+    }
+
+    .petal {
+        transform-origin: center;
+    }
+
+    #flowerCenter {
+        transform-origin: center;
+    }
+
+    #pistil {
+        transform-origin: center bottom;
+    }
+
+    .login-form {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px;
+        border-radius: 20px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .login-form h2 {
+        font-family: 'Playfair Display', serif;
+        color: #c94b4b;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #666;
+        font-style: italic;
+        margin-bottom: 30px;
+    }
+
+    .riddle {
+        margin-bottom: 25px;
+        background: rgba(255, 240, 245, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .riddle label {
+        font-weight: 600;
+        color: #c94b4b;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .riddle-text {
+        font-style: italic;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid rgba(201, 75, 75, 0.3);
+        border-radius: 8px;
+        font-size: 1em;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #c94b4b;
+        box-shadow: 0 0 10px rgba(201, 75, 75, 0.2);
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #d63447, #ff6b6b);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2em;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(214, 52, 71, 0.4);
+    }
+
+    .error {
+        background: rgba(214, 52, 71, 0.1);
+        color: #c94b4b;
+        padding: 12px;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 15px;
+        border: 2px solid rgba(214, 52, 71, 0.3);
+    }
+</style>

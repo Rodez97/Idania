@@ -1,0 +1,375 @@
+---
+// Leer el metadata.json
+const metadataPath = '/images/metadata.json';
+let photos = [];
+
+try {
+    const response = await fetch(`${import.meta.env.SITE || 'http://localhost:4321'}${metadataPath}`);
+    photos = await response.json();
+} catch {
+    console.log('No se pudo cargar metadata.json');
+}
+---
+
+<div class="carousel-container">
+    <div class="carousel-header">
+        <span class="carousel-counter">
+            <span id="current-photo">1</span> / <span id="total-photos">{photos.length}</span>
+        </span>
+    </div>
+
+    <div class="carousel">
+        <button class="carousel-btn carousel-btn-prev" id="prevBtn">
+            <i data-lucide="chevron-left"></i>
+        </button>
+
+        <div class="carousel-track-container">
+            <div class="carousel-track" id="carouselTrack">
+                {photos.map((photo, index) => (
+                    <div class="carousel-slide" data-index={index}>
+                        <img
+                            src={`/images/${photo.filename}`}
+                            alt="Idania"
+                            loading={index < 3 ? "eager" : "lazy"}
+                            class="carousel-img"
+                        />
+                        {(photo.date || photo.location_name) && (
+                            <div class="carousel-info">
+                                {photo.location_name && (
+                                    <div class="info-item location">
+                                        <i data-lucide="map-pin"></i>
+                                        <span>{photo.location_name}</span>
+                                    </div>
+                                )}
+                                {photo.date && (
+                                    <div class="info-item date">
+                                        <i data-lucide="calendar"></i>
+                                        <span>{photo.date}</span>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <button class="carousel-btn carousel-btn-next" id="nextBtn">
+            <i data-lucide="chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="carousel-dots" id="carouselDots">
+        {photos.slice(0, 10).map((_, index) => (
+            <button
+                class={`dot ${index === 0 ? 'active' : ''}`}
+                data-index={index}
+                aria-label={`Ir a foto ${index + 1}`}
+            />
+        ))}
+        {photos.length > 10 && (
+            <span class="dots-more">...</span>
+        )}
+    </div>
+</div>
+
+<script define:vars={{ photosCount: photos.length }}>
+    let currentIndex = 0;
+    const track = document.getElementById('carouselTrack');
+    const slides = Array.from(track.children);
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.getElementById('carouselDots');
+    const dots = Array.from(dotsContainer.querySelectorAll('.dot'));
+    const currentPhotoSpan = document.getElementById('current-photo');
+
+    function updateCarousel() {
+        // Mover el track
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+        // Actualizar contador
+        currentPhotoSpan.textContent = currentIndex + 1;
+
+        // Actualizar dots
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+
+        // Re-inicializar iconos de Lucide de forma segura
+        setTimeout(() => {
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            }
+        }, 100);
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % photosCount;
+        updateCarousel();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + photosCount) % photosCount;
+        updateCarousel();
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+    }
+
+    // Event listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => goToSlide(index));
+    });
+
+    // Teclado
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // Touch/swipe para móvil
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    track.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        if (touchStartX - touchEndX > 50) nextSlide();
+        if (touchEndX - touchStartX > 50) prevSlide();
+    }
+
+    // Ajustar al redimensionar ventana
+    window.addEventListener('resize', updateCarousel);
+
+    // Autoplay opcional (descomentar si quieres)
+    // setInterval(nextSlide, 5000);
+</script>
+
+<style>
+    .carousel-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 40px auto;
+    }
+
+    .carousel-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .carousel-counter {
+        display: inline-block;
+        background: rgba(214, 52, 71, 0.1);
+        color: #d63447;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 1em;
+    }
+
+    .carousel {
+        position: relative;
+        width: 100%;
+    }
+
+    .carousel-track-container {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 30px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-slide {
+        min-width: 100%;
+        position: relative;
+        max-height: 600px;
+        aspect-ratio: 3/4;
+        background: #f0f0f0;
+    }
+
+    .carousel-img {
+        width: 100%;
+        height: 100%;
+        max-height: 600px;
+        object-fit: contain;
+        display: block;
+    }
+
+    .carousel-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 70%, transparent 100%);
+        color: white;
+        padding: 40px 30px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.1em;
+    }
+
+    .info-item.location {
+        font-weight: 700;
+        font-size: 1.3em;
+    }
+
+    .info-item.date {
+        opacity: 0.9;
+        font-size: 1em;
+    }
+
+    .info-item :global(svg) {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+    }
+
+    .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        color: #d63447;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel-btn:hover {
+        background: white;
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .carousel-btn :global(svg) {
+        width: 32px;
+        height: 32px;
+    }
+
+    .carousel-btn-prev {
+        left: 20px;
+    }
+
+    .carousel-btn-next {
+        right: 20px;
+    }
+
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 30px;
+        align-items: center;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(214, 52, 71, 0.3);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0;
+    }
+
+    .dot:hover {
+        background: rgba(214, 52, 71, 0.5);
+        transform: scale(1.2);
+    }
+
+    .dot.active {
+        background: #d63447;
+        width: 14px;
+        height: 14px;
+    }
+
+    .dots-more {
+        color: #d63447;
+        font-weight: 700;
+        font-size: 1.2em;
+    }
+
+    @media (max-width: 768px) {
+        .carousel-btn {
+            width: 45px;
+            height: 45px;
+        }
+
+        .carousel-btn :global(svg) {
+            width: 24px;
+            height: 24px;
+        }
+
+        .carousel-btn-prev {
+            left: 10px;
+        }
+
+        .carousel-btn-next {
+            right: 10px;
+        }
+
+        .carousel-info {
+            padding: 30px 20px 20px;
+        }
+
+        .info-item.location {
+            font-size: 1.1em;
+        }
+
+        .info-item.date {
+            font-size: 0.9em;
+        }
+
+        .carousel-slide {
+            aspect-ratio: 2/3;
+            max-height: 500px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .carousel-btn {
+            width: 40px;
+            height: 40px;
+        }
+
+        .carousel-btn :global(svg) {
+            width: 20px;
+            height: 20px;
+        }
+    }
+</style>

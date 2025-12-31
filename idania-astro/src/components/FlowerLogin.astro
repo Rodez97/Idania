@@ -1,0 +1,208 @@
+---
+// Componente simple de flor y login
+---
+
+<div class="flower-wrapper" id="flowerWrapper">
+    <!-- Imagen de hibisco -->
+    <div class="flower-container">
+        <img src="/images/hibiscus.webp" alt="Hibiscus" class="hibiscus-image" />
+        <h1 class="flower-text">Para Idania 🌺</h1>
+    </div>
+
+    <!-- Login -->
+    <div class="login-box" id="loginBox" style="display: none;">
+        <h2>Descifra el Acceso</h2>
+
+        <div class="input-group">
+            <label>No soy niña ni mujer completa, soy juvenil y pequeña...</label>
+            <input type="text" id="user" placeholder="¿Quién soy?">
+        </div>
+
+        <div class="input-group">
+            <label>Cinco letras, belleza simple que empieza con L...</label>
+            <input type="password" id="pass" placeholder="¿Qué palabra?">
+        </div>
+
+        <p class="error" id="error" style="display: none;">Incorrecto, piensa mejor...</p>
+        <button onclick="checkLogin()">Entrar</button>
+    </div>
+</div>
+
+<script is:inline>
+    // Mostrar login después de 3 segundos
+    setTimeout(() => {
+        const flower = document.querySelector('.flower-container');
+        const login = document.getElementById('loginBox');
+
+        flower.style.transform = 'scale(0.5) translateY(-100px)';
+        flower.style.transition = 'all 1s ease';
+
+        setTimeout(() => {
+            login.style.display = 'block';
+            login.style.opacity = '0';
+            setTimeout(() => {
+                login.style.transition = 'opacity 0.5s';
+                login.style.opacity = '1';
+            }, 10);
+        }, 500);
+    }, 3000);
+
+    // Función de login
+    function checkLogin() {
+        const user = document.getElementById('user').value.toLowerCase().trim();
+        const pass = document.getElementById('pass').value.toLowerCase().trim();
+        const error = document.getElementById('error');
+
+        if (user === 'muchachita' && pass === 'linda') {
+            const wrapper = document.getElementById('flowerWrapper');
+            const main = document.getElementById('mainContent');
+
+            wrapper.style.transition = 'opacity 1s';
+            wrapper.style.opacity = '0';
+
+            setTimeout(() => {
+                wrapper.style.display = 'none';
+                if (main) {
+                    main.style.display = 'block';
+                    main.style.opacity = '0';
+                    setTimeout(() => {
+                        main.style.transition = 'opacity 1s';
+                        main.style.opacity = '1';
+                    }, 10);
+                }
+            }, 1000);
+        } else {
+            error.style.display = 'block';
+            setTimeout(() => error.style.display = 'none', 3000);
+        }
+    }
+
+    // Enter key
+    document.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkLogin();
+    });
+</script>
+
+<style>
+    .flower-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+    }
+
+    .flower-container {
+        text-align: center;
+        transition: all 1s ease;
+    }
+
+    .hibiscus-image {
+        width: 400px;
+        height: auto;
+        filter: drop-shadow(0 0 40px rgba(255, 105, 180, 0.8));
+        animation: fadeIn 1s ease forwards, float 3s ease-in-out 2s infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .flower-text {
+        color: #ff69b4;
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5em;
+        margin-top: 30px;
+        text-shadow: 0 0 30px rgba(255, 105, 180, 0.8),
+                     0 0 60px rgba(255, 105, 180, 0.4);
+        animation: fadeIn 1s ease 2s forwards, pulse 2s ease-in-out 3s infinite;
+        opacity: 0;
+        letter-spacing: 2px;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+
+    .login-box {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        max-width: 450px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .login-box h2 {
+        color: #d63447;
+        text-align: center;
+        margin-bottom: 30px;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group label {
+        display: block;
+        color: #666;
+        font-size: 0.9em;
+        margin-bottom: 8px;
+        font-style: italic;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 1em;
+        box-sizing: border-box;
+    }
+
+    .input-group input:focus {
+        outline: none;
+        border-color: #d63447;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #d63447, #ff6b6b);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1em;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(214, 52, 71, 0.4);
+    }
+
+    .error {
+        background: #ffe6e6;
+        color: #d63447;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        margin: 15px 0;
+        border: 1px solid #ffcccc;
+    }
+</style>

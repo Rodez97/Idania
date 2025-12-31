@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Historia ♡ Idania</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #c94b4b 0%, #4a148c 50%, #d63447 100%);
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px 60px;
+            animation: fadeInDown 1s ease;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #ffe6f0;
+            font-weight: 300;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(214, 52, 71, 0.6) 50%,
+                rgba(255, 255, 255, 0.3) 100%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(5) { animation-delay: 1s; }
+        .timeline-item:nth-child(6) { animation-delay: 1.2s; }
+        .timeline-item:nth-child(7) { animation-delay: 1.4s; }
+        .timeline-item:nth-child(8) { animation-delay: 1.6s; }
+        .timeline-item:nth-child(9) { animation-delay: 1.8s; }
+
+        .timeline-content {
+            position: relative;
+            width: 45%;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 55%;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #d63447 0%, #ff6b6b 100%);
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(214, 52, 71, 0.3);
+            z-index: 2;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 4px rgba(214, 52, 71, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(214, 52, 71, 0.5);
+            }
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #d63447 0%, #ff6b6b 100%);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(214, 52, 71, 0.3);
+        }
+
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: #c94b4b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke-width: 2;
+        }
+
+        .timeline-description {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-marker {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .timeline-title {
+                font-size: 1.4em;
+            }
+        }
+
+        .heart {
+            display: inline-block;
+            color: #d63447;
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20%, 40% { transform: scale(1); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <div class="container">
+        <header>
+            <h1>Nuestra Historia <span class="heart">♡</span></h1>
+            <p class="subtitle">Los momentos que nos definieron</p>
+            <a href="index.html" class="back-link">← Volver al inicio</a>
+        </header>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">22 de Mayo, 2021</span>
+                    <h3 class="timeline-title">
+                        <span class="timeline-icon"><i data-lucide="sparkles"></i></span>
+                        Match (Tinder)
+                    </h3>
+                    <p class="timeline-description">
+                        Hicimos match en Tinder hace ya 4 años. Quién iba a decir que años después
+                        retomaríamos contacto y pasaría todo esto.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">15 de Agosto, 2025</span>
+                    <h3 class="timeline-title">
+                        <span class="timeline-icon"><i data-lucide="mail"></i></span>
+                        Primer Mensaje (Tinder)
+                    </h3>
+                    <p class="timeline-description">
+                        Después de más de 4 años del match, finalmente nos escribimos por primera vez.
+                        A veces el timing es todo, y parece que este era el momento indicado.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">20 de Agosto, 2025</span>
+                    <h3 class="timeline-title">
+                        <span class="timeline-icon"><i data-lucide="message-circle"></i></span>
+                        Primer Mensaje (Instagram)
+                    </h3>
+                    <p class="timeline-description">
+                        Continuamos la conversación en Instagram. Seguimos hablando y conociéndonos
+                        cada vez más. Las conversaciones fluían muy bien.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">6 de Septiembre, 2025</span>
+                    <h3 class="timeline-title">
+                        <span class="timeline-icon"><i data-lucide="coffee"></i></span>
+                        Primera Cita
+                    </h3>
+                    <p class="timeline-description">
+                        Nuestra primera cita. Pasamos de mensajes a vernos en persona.
+                        Fue agradable conocernos cara a cara y descubrir que la química también funcionaba en vivo.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">9 de Octubre, 2025</span>
+                    <h3 class="timeline-title">
+                        <span class="timeline-icon"><i data-lucide="heart"></i></span>
+                        Primer Beso
+                    </h3>
+                    <p class="timeline-description">
+                        Nuestro primer beso. Un momento especial que confirmó que esto que estaba pasando
+                        entre nosotros era real y que valía la pena seguir adelante.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">3 de Diciembre, 2025</span>
+                    <h3 class="timeline-title">
+                        <span class="timeline-icon"><i data-lucide="users"></i></span>
+                        Idania conoce al 80% de mi familia
+                    </h3>
+                    <p class="timeline-description">
+                        Un paso importante. Te presenté a la mayor parte de mi familia. Fue bueno que pudieras
+                        conocer a la gente importante en mi vida y ver cómo te recibieron.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">4 de Diciembre, 2025</span>
+                    <h3 class="timeline-title">
+                        <span class="timeline-icon"><i data-lucide="plane"></i></span>
+                        Primer Viaje (Bélgica)
+                    </h3>
+                    <p class="timeline-description">
+                        Nuestro primer viaje juntos a Bélgica. Fue genial explorar un nuevo lugar contigo,
+                        compartir experiencias y crear buenos recuerdos juntos.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">4 de Diciembre, 2025</span>
+                    <h3 class="timeline-title">
+                        <span class="timeline-icon"><i data-lucide="flower"></i></span>
+                        Conexión Íntima Perfecta
+                    </h3>
+                    <p class="timeline-description">
+                        Un momento importante donde nuestra conexión pasó a otro nivel.
+                        Intimidad y confianza, compartiendo algo especial juntos.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="timeline-content">
+                    <span class="timeline-date">6 de Diciembre, 2025</span>
+                    <h3 class="timeline-title">
+                        <span class="timeline-icon"><i data-lucide="heart-handshake"></i></span>
+                        Momento de Entrega Total
+                    </h3>
+                    <p class="timeline-description">
+                        Otro paso más en nuestra intimidad. Seguimos explorando y conociéndonos
+                        en diferentes aspectos de nuestra relación.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Me gusta lo que estamos construyendo <span class="heart">♡</span></p>
+            <p>Y seguimos escribiendo nuestra historia...</p>
+        </footer>
+    </div>
+
+    <script>
+        // Crear estrellas
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Crear corazones flotantes
+        const heartsContainer = document.getElementById('floatingHearts');
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '♡';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }, 800);
+
+        // Animación de scroll reveal para los elementos de la timeline
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
+    </script>
+</body>
+</html>

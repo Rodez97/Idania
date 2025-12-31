@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hibiscus Floreciendo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 50%, #0d2035 100%);
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        svg {
+            width: 500px;
+            height: 600px;
+            overflow: visible;
+        }
+
+        .title {
+            position: absolute;
+            bottom: 50px;
+            font-family: 'Georgia', serif;
+            font-size: 28px;
+            color: #fff;
+            opacity: 0;
+            text-shadow: 2px 2px 15px rgba(255,100,150,0.5);
+            letter-spacing: 3px;
+        }
+
+        .replay-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: sans-serif;
+            transition: all 0.3s;
+        }
+
+        .replay-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg viewBox="0 0 500 600">
+            <defs>
+                <!-- Gradientes -->
+                <linearGradient id="stemGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" style="stop-color:#1a4d1a"/>
+                    <stop offset="100%" style="stop-color:#2d7a2d"/>
+                </linearGradient>
+
+                <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#3d8b3d"/>
+                    <stop offset="100%" style="stop-color:#2d6b2d"/>
+                </linearGradient>
+
+                <radialGradient id="petalGradient" cx="50%" cy="20%" r="80%">
+                    <stop offset="0%" style="stop-color:#ff8a9e"/>
+                    <stop offset="30%" style="stop-color:#e91e63"/>
+                    <stop offset="70%" style="stop-color:#c2185b"/>
+                    <stop offset="100%" style="stop-color:#880e4f"/>
+                </radialGradient>
+
+                <radialGradient id="centerGradient" cx="40%" cy="40%" r="60%">
+                    <stop offset="0%" style="stop-color:#fff59d"/>
+                    <stop offset="50%" style="stop-color:#ffeb3b"/>
+                    <stop offset="100%" style="stop-color:#f9a825"/>
+                </radialGradient>
+
+                <linearGradient id="pistilGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" style="stop-color:#ffeb3b"/>
+                    <stop offset="100%" style="stop-color:#c62828"/>
+                </linearGradient>
+
+                <!-- Filtro de brillo -->
+                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+
+                <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur stdDeviation="15" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+
+            <!-- Grupo principal que se mece -->
+            <g id="flowerGroup">
+                <!-- Tallo -->
+                <g id="stem">
+                    <path d="M250,580 Q248,480 252,380 Q250,320 250,280" 
+                          stroke="url(#stemGradient)" 
+                          stroke-width="10" 
+                          fill="none" 
+                          stroke-linecap="round"
+                          id="stemPath"/>
+                    
+                    <!-- Hojas del tallo -->
+                    <g id="leaf1" opacity="0">
+                        <ellipse cx="220" cy="420" rx="35" ry="18" fill="url(#leafGradient)" transform="rotate(-35, 220, 420)"/>
+                        <path d="M250,420 Q235,420 210,415" stroke="#2d6b2d" stroke-width="1.5" fill="none"/>
+                    </g>
+                    <g id="leaf2" opacity="0">
+                        <ellipse cx="280" cy="480" rx="35" ry="18" fill="url(#leafGradient)" transform="rotate(35, 280, 480)"/>
+                        <path d="M250,480 Q265,480 290,475" stroke="#2d6b2d" stroke-width="1.5" fill="none"/>
+                    </g>
+                </g>
+
+                <!-- Grupo de la flor -->
+                <g id="flower" transform="translate(250, 280)">
+                    <!-- Resplandor de fondo -->
+                    <circle id="backgroundGlow" cx="0" cy="-30" r="120" fill="rgba(233,30,99,0.15)" filter="url(#softGlow)" opacity="0"/>
+
+                    <!-- Sépalos (hojas verdes detrás de los pétalos) -->
+                    <g id="sepals">
+                        <ellipse class="sepal" cx="0" cy="45" rx="18" ry="35" fill="url(#leafGradient)" opacity="0"/>
+                        <ellipse class="sepal" cx="43" cy="14" rx="18" ry="35" fill="url(#leafGradient)" transform="rotate(72, 43, 14)" opacity="0"/>
+                        <ellipse class="sepal" cx="27" cy="-36" rx="18" ry="35" fill="url(#leafGradient)" transform="rotate(144, 27, -36)" opacity="0"/>
+                        <ellipse class="sepal" cx="-27" cy="-36" rx="18" ry="35" fill="url(#leafGradient)" transform="rotate(216, -27, -36)" opacity="0"/>
+                        <ellipse class="sepal" cx="-43" cy="14" rx="18" ry="35" fill="url(#leafGradient)" transform="rotate(288, -43, 14)" opacity="0"/>
+                    </g>
+
+                    <!-- Pétalos -->
+                    <g id="petals">
+                        <!-- Pétalo 1 -->
+                        <path class="petal" d="M0,0 C-30,-25 -55,-70 -40,-115 C-28,-150 -12,-165 0,-170 C12,-165 28,-150 40,-115 C55,-70 30,-25 0,0 Z" 
+                              fill="url(#petalGradient)" 
+                              transform="rotate(0) scale(0)"
+                              filter="url(#glow)"/>
+                        <!-- Pétalo 2 -->
+                        <path class="petal" d="M0,0 C-30,-25 -55,-70 -40,-115 C-28,-150 -12,-165 0,-170 C12,-165 28,-150 40,-115 C55,-70 30,-25 0,0 Z" 
+                              fill="url(#petalGradient)" 
+                              transform="rotate(72) scale(0)"
+                              filter="url(#glow)"/>
+                        <!-- Pétalo 3 -->
+                        <path class="petal" d="M0,0 C-30,-25 -55,-70 -40,-115 C-28,-150 -12,-165 0,-170 C12,-165 28,-150 40,-115 C55,-70 30,-25 0,0 Z" 
+                              fill="url(#petalGradient)" 
+                              transform="rotate(144) scale(0)"
+                              filter="url(#glow)"/>
+                        <!-- Pétalo 4 -->
+                        <path class="petal" d="M0,0 C-30,-25 -55,-70 -40,-115 C-28,-150 -12,-165 0,-170 C12,-165 28,-150 40,-115 C55,-70 30,-25 0,0 Z" 
+                              fill="url(#petalGradient)" 
+                              transform="rotate(216) scale(0)"
+                              filter="url(#glow)"/>
+                        <!-- Pétalo 5 -->
+                        <path class="petal" d="M0,0 C-30,-25 -55,-70 -40,-115 C-28,-150 -12,-165 0,-170 C12,-165 28,-150 40,-115 C55,-70 30,-25 0,0 Z" 
+                              fill="url(#petalGradient)" 
+                              transform="rotate(288) scale(0)"
+                              filter="url(#glow)"/>
+                    </g>
+
+                    <!-- Centro de la flor -->
+                    <circle id="flowerCenter" cx="0" cy="0" r="28" fill="url(#centerGradient)" transform="scale(0)" filter="url(#glow)"/>
+
+                    <!-- Pistilo (columna estaminal característica del hibiscus) -->
+                    <g id="pistil" opacity="0">
+                        <!-- Columna principal -->
+                        <rect x="-5" y="-130" width="10" height="130" rx="5" fill="url(#pistilGradient)"/>
+                        
+                        <!-- Estambres a lo largo del pistilo -->
+                        <g id="stamens">
+                            <g class="stamen" transform="translate(0, -35)">
+                                <line x1="0" y1="0" x2="-18" y2="-10" stroke="#c62828" stroke-width="2.5"/>
+                                <circle cx="-18" cy="-10" r="5" fill="#ffeb3b" filter="url(#glow)"/>
+                            </g>
+                            <g class="stamen" transform="translate(0, -50)">
+                                <line x1="0" y1="0" x2="18" y2="-12" stroke="#c62828" stroke-width="2.5"/>
+                                <circle cx="18" cy="-12" r="5" fill="#ffeb3b" filter="url(#glow)"/>
+                            </g>
+                            <g class="stamen" transform="translate(0, -65)">
+                                <line x1="0" y1="0" x2="-20" y2="-8" stroke="#c62828" stroke-width="2.5"/>
+                                <circle cx="-20" cy="-8" r="5" fill="#ffeb3b" filter="url(#glow)"/>
+                            </g>
+                            <g class="stamen" transform="translate(0, -80)">
+                                <line x1="0" y1="0" x2="20" y2="-10" stroke="#c62828" stroke-width="2.5"/>
+                                <circle cx="20" cy="-10" r="5" fill="#ffeb3b" filter="url(#glow)"/>
+                            </g>
+                            <g class="stamen" transform="translate(0, -95)">
+                                <line x1="0" y1="0" x2="-15" y2="-12" stroke="#c62828" stroke-width="2.5"/>
+                                <circle cx="-15" cy="-12" r="5" fill="#ffeb3b" filter="url(#glow)"/>
+                            </g>
+                            <g class="stamen" transform="translate(0, -110)">
+                                <line x1="0" y1="0" x2="15" y2="-10" stroke="#c62828" stroke-width="2.5"/>
+                                <circle cx="15" cy="-10" r="5" fill="#ffeb3b" filter="url(#glow)"/>
+                            </g>
+                        </g>
+
+                        <!-- Estigma (punta del pistilo) -->
+                        <g id="stigma" transform="translate(0, -140)">
+                            <circle cx="-10" cy="0" r="7" fill="#d32f2f" filter="url(#glow)"/>
+                            <circle cx="10" cy="0" r="7" fill="#d32f2f" filter="url(#glow)"/>
+                            <circle cx="0" cy="-10" r="7" fill="#d32f2f" filter="url(#glow)"/>
+                            <circle cx="-6" cy="-16" r="6" fill="#b71c1c" filter="url(#glow)"/>
+                            <circle cx="6" cy="-16" r="6" fill="#b71c1c" filter="url(#glow)"/>
+                        </g>
+                    </g>
+
+                    <!-- Partículas de polen -->
+                    <g id="pollenParticles">
+                        <circle class="pollen" cx="-25" cy="-50" r="3" fill="#ffeb3b" opacity="0" filter="url(#glow)"/>
+                        <circle class="pollen" cx="20" cy="-70" r="3" fill="#fff59d" opacity="0" filter="url(#glow)"/>
+                        <circle class="pollen" cx="-15" cy="-100" r="2.5" fill="#ffeb3b" opacity="0" filter="url(#glow)"/>
+                        <circle class="pollen" cx="30" cy="-45" r="2" fill="#fff59d" opacity="0" filter="url(#glow)"/>
+                        <circle class="pollen" cx="-30" cy="-85" r="2.5" fill="#ffeb3b" opacity="0" filter="url(#glow)"/>
+                    </g>
+                </g>
+            </g>
+        </svg>
+
+        <div class="title" id="title">🌺 Hibiscus</div>
+        <button class="replay-btn" onclick="replayAnimation()">↻ Repetir</button>
+    </div>
+
+    <script>
+        let mainTimeline;
+
+        function animateFlower() {
+            const tl = gsap.timeline();
+
+            // Reset de todos los elementos
+            gsap.set("#stemPath", { strokeDasharray: 300, strokeDashoffset: 300 });
+            gsap.set("#leaf1, #leaf2", { opacity: 0, scale: 0, transformOrigin: "center" });
+            gsap.set(".sepal", { opacity: 0, scale: 0, transformOrigin: "center" });
+            gsap.set(".petal", { scale: 0, transformOrigin: "0 0" });
+            gsap.set("#flowerCenter", { scale: 0, transformOrigin: "center" });
+            gsap.set("#pistil", { opacity: 0, scaleY: 0, transformOrigin: "0 0" });
+            gsap.set(".stamen", { opacity: 0, scale: 0, transformOrigin: "center" });
+            gsap.set("#stigma", { scale: 0, transformOrigin: "center" });
+            gsap.set("#backgroundGlow", { opacity: 0, scale: 0.5 });
+            gsap.set(".pollen", { opacity: 0, y: 0 });
+            gsap.set("#title", { opacity: 0, y: 20 });
+            gsap.set("#flowerGroup", { rotation: 0 });
+
+            // 1. Animación del tallo creciendo
+            tl.to("#stemPath", {
+                strokeDashoffset: 0,
+                duration: 1.5,
+                ease: "power2.out"
+            });
+
+            // 2. Hojas del tallo
+            tl.to("#leaf1", {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                ease: "back.out(2)"
+            }, "-=0.8");
+
+            tl.to("#leaf2", {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                ease: "back.out(2)"
+            }, "-=0.4");
+
+            // 3. Sépalos apareciendo
+            tl.to(".sepal", {
+                opacity: 1,
+                scale: 1,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "back.out(2)"
+            }, "-=0.2");
+
+            // 4. Pétalos floreciendo uno por uno
+            const petals = document.querySelectorAll(".petal");
+            const rotations = [0, 72, 144, 216, 288];
+            
+            petals.forEach((petal, i) => {
+                tl.to(petal, {
+                    scale: 1,
+                    duration: 0.9,
+                    ease: "elastic.out(1, 0.6)",
+                    attr: { transform: `rotate(${rotations[i]}) scale(1)` }
+                }, i === 0 ? "+=0" : "-=0.6");
+            });
+
+            // 5. Centro de la flor
+            tl.to("#flowerCenter", {
+                scale: 1,
+                duration: 0.7,
+                ease: "elastic.out(1, 0.5)"
+            }, "-=0.4");
+
+            // 6. Pistilo creciendo
+            tl.to("#pistil", {
+                opacity: 1,
+                scaleY: 1,
+                duration: 1.2,
+                ease: "power3.out"
+            }, "-=0.3");
+
+            // 7. Estambres apareciendo en secuencia
+            tl.to(".stamen", {
+                opacity: 1,
+                scale: 1,
+                duration: 0.4,
+                stagger: 0.12,
+                ease: "back.out(3)"
+            }, "-=0.7");
+
+            // 8. Estigma en la punta
+            tl.to("#stigma", {
+                scale: 1,
+                duration: 0.6,
+                ease: "elastic.out(1, 0.4)"
+            }, "-=0.3");
+
+            // 9. Resplandor de fondo
+            tl.to("#backgroundGlow", {
+                opacity: 1,
+                scale: 1,
+                duration: 1.2,
+                ease: "power2.out"
+            }, "-=1.5");
+
+            // 10. Título apareciendo
+            tl.to("#title", {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.5");
+
+            // Animaciones continuas (loops)
+            tl.add(() => {
+                // Partículas de polen flotando
+                gsap.to(".pollen", {
+                    opacity: 0.9,
+                    y: "-=40",
+                    duration: 2.5,
+                    stagger: {
+                        each: 0.4,
+                        repeat: -1,
+                        yoyo: true
+                    },
+                    ease: "sine.inOut"
+                });
+
+                // Movimiento suave de toda la planta
+                gsap.to("#flowerGroup", {
+                    rotation: 3,
+                    transformOrigin: "250px 580px",
+                    duration: 3.5,
+                    yoyo: true,
+                    repeat: -1,
+                    ease: "sine.inOut"
+                });
+
+                // Pulso suave del resplandor
+                gsap.to("#backgroundGlow", {
+                    scale: 1.15,
+                    opacity: 0.7,
+                    duration: 2.5,
+                    yoyo: true,
+                    repeat: -1,
+                    ease: "sine.inOut"
+                });
+            });
+
+            return tl;
+        }
+
+        function replayAnimation() {
+            gsap.killTweensOf("*");
+            animateFlower();
+        }
+
+        // Iniciar animación al cargar
+        window.onload = () => {
+            mainTimeline = animateFlower();
+        };
+    </script>
+</body>
+</html>

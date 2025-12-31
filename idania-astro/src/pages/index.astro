@@ -1,0 +1,267 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FlowerLogin from '../components/FlowerLogin.astro';
+import Gallery from '../components/Gallery.astro';
+import Playlist from '../components/Playlist.astro';
+import ChildhoodPhotos from '../components/ChildhoodPhotos.astro';
+import OpenWhen from '../components/OpenWhen.astro';
+---
+
+<BaseLayout title="Para Idania ♡">
+    <!-- Animación de entrada con login -->
+    <FlowerLogin />
+
+    <!-- Contenido principal (oculto hasta login) -->
+    <div id="mainContent" style="display: none;">
+        <header>
+            <h1>Idania <span class="heart"><i data-lucide="heart"></i></span></h1>
+            <p class="subtitle">Un espacio creado especialmente para ti, en tu color favorito</p>
+            <a href="/timeline" class="timeline-link">
+                <i data-lucide="sparkles"></i> Ver Nuestra Historia <i data-lucide="sparkles"></i>
+            </a>
+        </header>
+
+        <section class="section">
+            <h2>Lo que me gusta de ti</h2>
+            <p>
+                Idania, desde que empezamos a conocernos, no he dejado de sorprenderme con lo <span class="highlight">genial</span> que eres.
+                Tu sonrisa es contagiosa, tu risa hace que cualquier momento se vuelva mejor, y tu forma de ser me tiene totalmente enganchado.
+            </p>
+            <p>
+                Eres una persona <span class="highlight">increíble</span>, con una personalidad que mezcla dulzura y fuerza de una manera única.
+                Me encanta tu inteligencia, tu sentido del humor, y cómo ves la vida.
+                Cada vez que hablamos descubro algo nuevo que me gusta de ti.
+            </p>
+            <div class="quote">
+                "Conocerte ha sido una de las mejores sorpresas de este año"
+            </div>
+            <p>
+                Admiro tu autenticidad y lo <span class="highlight">hermosa</span> que eres, tanto por dentro como por fuera.
+                Me gusta pasar tiempo contigo, conocerte más, y ver a dónde nos lleva esto que estamos construyendo.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>Momentos contigo</h2>
+            <Gallery />
+        </section>
+
+        <section class="section childhood-special">
+            <h2>Tus ojos desde siempre</h2>
+            <ChildhoodPhotos />
+        </section>
+
+        <section class="section">
+            <h2>Por qué me gustas tanto</h2>
+            <p>
+                Me gustas porque eres auténtica, sin pretensiones. Desde el primer momento me llamó la atención tu naturalidad.
+                Me encanta cómo tus ojos <span class="highlight">brillan</span> cuando hablas de lo que te apasiona,
+                tu risa espontánea, y esa energía que tienes.
+            </p>
+            <p>
+                Me atrae tu inteligencia, cómo puedes mantener una conversación interesante y al rato estar riéndote sin parar.
+                Tu forma de ser directa, sin rodeos, eso me gusta mucho.
+                Cada vez que quedamos descubro algo nuevo que me hace querer conocerte más.
+            </p>
+            <div class="quote">
+                "Me tienes enganchado con tu forma de ser"
+            </div>
+            <p>
+                Me gusta tu <span class="highlight">actitud</span>, cómo te tomas la vida, y lo bien que la pasamos juntos.
+                Eres divertida, interesante, y me lo paso genial contigo. Definitivamente quiero seguir conociéndote.
+            </p>
+        </section>
+
+        <section class="section apology-section">
+            <h2>Quiero pedirte perdón</h2>
+            <p>
+                Idania, quiero disculparme por cualquier cosa que haya hecho que te molestara o no te hiciera sentir bien.
+                Sé que a veces meto la pata, y si en algún momento mis palabras o acciones no fueron las correctas, lo siento de verdad.
+            </p>
+            <p>
+                Si alguna vez no valoré tu tiempo como debía, o si no presté la atención que merecías, te pido perdón.
+                Nunca fue mi intención hacerte sentir mal. Reconozco que a veces pude haberlo hecho mejor.
+            </p>
+            <div class="quote">
+                "Todos cometemos errores, lo importante es reconocerlos"
+            </div>
+            <p>
+                Estoy aprendiendo cada día a ser mejor, y valoro mucho el tiempo que pasamos juntos.
+                Si cometí algún error que te afectó, espero que puedas perdonarme.
+                Me importas y quiero que esto que tenemos funcione bien.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>Canciones que me recuerdan a ti</h2>
+            <p>
+                Cada una de estas canciones tiene algo que me hace pensar en ti, en nosotros, o en momentos que hemos compartido.
+                Sé que te encanta el afrobeat, pero esta playlist es más variada, con canciones que me recuerdan a diferentes momentos contigo.
+                Espero que te gusten tanto como a mí.
+            </p>
+            <Playlist />
+        </section>
+
+        <section class="section open-when-section">
+            <h2>Cartas para ti</h2>
+            <OpenWhen />
+        </section>
+
+        <section class="section">
+            <h2>Para terminar</h2>
+            <p>
+                Idania, conocerte ha sido una <span class="highlight">grata sorpresa</span>.
+                Me gusta mucho cómo van las cosas entre nosotros y tengo ganas de ver qué más viene.
+            </p>
+            <p>
+                Eres una persona genial y me alegro de haberte conocido.
+                Espero que sigamos pasándola bien juntos y que esto siga fluyendo como hasta ahora.
+            </p>
+            <div class="quote">
+                "Vamos paso a paso, pero me gusta el camino que estamos tomando"
+            </div>
+            <p>
+                Mereces estar bien y ser feliz. Me gusta estar contigo y quiero seguir conociéndote más <span class="heart"><i data-lucide="heart"></i></span>
+            </p>
+        </section>
+
+        <footer>
+            <p>Hecho con cariño <span class="heart"><i data-lucide="heart"></i></span></p>
+            <p>Para Idania</p>
+        </footer>
+    </div>
+</BaseLayout>
+
+<style>
+    header {
+        text-align: center;
+        padding: 60px 20px;
+        animation: fadeInDown 1s ease;
+    }
+
+    h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 4em;
+        color: white;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        margin-bottom: 20px;
+    }
+
+    .subtitle {
+        font-size: 1.5em;
+        color: #ffe6f0;
+        font-weight: 300;
+    }
+
+    .timeline-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 30px;
+        padding: 15px 40px;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        font-size: 1.1em;
+        font-weight: 600;
+    }
+
+    .timeline-link:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .timeline-link :global(svg) {
+        width: 20px;
+        height: 20px;
+    }
+
+    .section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 30px;
+        padding: 50px;
+        margin: 40px 0;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 1s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5em;
+        color: #c94b4b;
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    .section h2::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #d63447 0%, #ff6b6b 100%);
+        margin: 15px auto 0;
+        border-radius: 2px;
+    }
+
+    .section p {
+        font-size: 1.2em;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
+    .quote {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5em;
+        font-style: italic;
+        color: #c94b4b;
+        text-align: center;
+        margin: 30px 0;
+        padding: 20px;
+        border-left: 4px solid #d63447;
+        background: rgba(214, 52, 71, 0.1);
+    }
+
+    .apology-section {
+        background: linear-gradient(135deg, rgba(255, 182, 193, 0.95) 0%, rgba(255, 218, 224, 0.95) 100%);
+    }
+
+    .childhood-special {
+        background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 250, 240, 0.95) 100%);
+        border: 2px solid rgba(214, 52, 71, 0.1);
+    }
+
+    .open-when-section {
+        background: linear-gradient(135deg, rgba(255, 235, 245, 0.95) 0%, rgba(240, 230, 255, 0.95) 100%);
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

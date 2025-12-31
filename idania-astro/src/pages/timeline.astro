@@ -1,0 +1,407 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Nuestra Historia ♡ Idania">
+    <header>
+        <h1>Nuestra Historia <span class="heart"><i data-lucide="heart"></i></span></h1>
+        <p class="subtitle">Los momentos que nos definieron</p>
+        <a href="/" class="back-link">← Volver al inicio</a>
+    </header>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">22 de Mayo, 2021</span>
+                <h3 class="timeline-title">
+                    <span class="timeline-icon"><i data-lucide="sparkles"></i></span>
+                    Match (Tinder)
+                </h3>
+                <p class="timeline-description">
+                    Hicimos match en Tinder hace ya 4 años. Quién iba a decir que años después
+                    retomaríamos contacto y pasaría todo esto.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">15 de Agosto, 2025</span>
+                <h3 class="timeline-title">
+                    <span class="timeline-icon"><i data-lucide="mail"></i></span>
+                    Primer Mensaje (Tinder)
+                </h3>
+                <p class="timeline-description">
+                    Después de mucho tiempo, te escribí por Tinder y empezamos a hablar. Fue el inicio de todo esto.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">20 de Agosto, 2025</span>
+                <h3 class="timeline-title">
+                    <span class="timeline-icon"><i data-lucide="message-circle"></i></span>
+                    Primer Mensaje (Instagram)
+                </h3>
+                <p class="timeline-description">
+                    Empezamos a hablar por Instagram también. Las conversaciones se volvieron más frecuentes y fluidas.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">6 de Septiembre, 2025</span>
+                <h3 class="timeline-title">
+                    <span class="timeline-icon"><i data-lucide="coffee"></i></span>
+                    Primera Cita
+                </h3>
+                <p class="timeline-description">
+                    Nos vimos por primera vez en persona. Nervios, risas, y la confirmación de que en persona eras aún mejor.
+                </p>
+                <div class="timeline-photo">
+                    <img src="/images/IMG_5664.jpg" alt="Primera cita" loading="lazy" />
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">9 de Octubre, 2025</span>
+                <h3 class="timeline-title">
+                    <span class="timeline-icon"><i data-lucide="heart"></i></span>
+                    Primer Beso
+                </h3>
+                <p class="timeline-description">
+                    El momento que hizo que todo se sintiera real. Un beso que cambió las cosas entre nosotros.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">3 de Diciembre, 2025</span>
+                <h3 class="timeline-title">
+                    <span class="timeline-icon"><i data-lucide="users"></i></span>
+                    Idania conoce al 80% de mi familia
+                </h3>
+                <p class="timeline-description">
+                    Un paso importante. Conociste a casi toda mi familia y encajaste perfectamente con todos.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">4 de Diciembre, 2025</span>
+                <h3 class="timeline-title">
+                    <span class="timeline-icon"><i data-lucide="plane"></i></span>
+                    Primer Viaje (Bélgica)
+                </h3>
+                <p class="timeline-description">
+                    Nuestro primer viaje juntos a Bélgica. Días increíbles explorando Bruselas, Brujas y Gante, riendo y creando recuerdos inolvidables.
+                </p>
+                <div class="timeline-photos-grid">
+                    <img src="/images/IMG_7186.jpg" alt="Bélgica - Bruselas" loading="lazy" />
+                    <img src="/images/IMG_7192.jpg" alt="Bélgica - Brujas" loading="lazy" />
+                    <img src="/images/IMG_7156.jpg" alt="Bélgica - Gante" loading="lazy" />
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">4 de Diciembre, 2025</span>
+                <h3 class="timeline-title">
+                    <span class="timeline-icon"><i data-lucide="flower"></i></span>
+                    Primera relación sexual en condiciones
+                </h3>
+                <p class="timeline-description">
+                    Un momento de intimidad especial durante nuestro viaje. Compartimos algo hermoso y significativo.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+                <span class="timeline-date">6 de Diciembre, 2025</span>
+                <h3 class="timeline-title">
+                    <span class="timeline-icon"><i data-lucide="heart-handshake"></i></span>
+                    Primera felación
+                </h3>
+                <p class="timeline-description">
+                    Seguimos conociendo nuestros cuerpos y disfrutando de nuestra intimidad. Cada momento contigo es especial.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Me gusta lo que estamos construyendo <span class="heart"><i data-lucide="heart"></i></span></p>
+        <p>Y seguimos escribiendo nuestra historia...</p>
+    </footer>
+</BaseLayout>
+
+<style>
+    /* Estilos de la timeline - copia del original */
+    header {
+        text-align: center;
+        padding: 40px 20px 60px;
+        animation: fadeInDown 1s ease;
+    }
+
+    h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5em;
+        color: white;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        margin-bottom: 15px;
+    }
+
+    .subtitle {
+        font-size: 1.3em;
+        color: #ffe6f0;
+        font-weight: 300;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 30px;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .timeline {
+        position: relative;
+        padding: 40px 0;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(to bottom, #d63447, #ff6b6b);
+        border-radius: 2px;
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 60px;
+        animation: fadeInUp 0.8s ease;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+        margin-left: auto;
+        text-align: left;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+        margin-right: auto;
+        text-align: right;
+    }
+
+    .timeline-marker {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 24px;
+        background: #d63447;
+        border: 4px solid white;
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px rgba(214, 52, 71, 0.2);
+        z-index: 2;
+        animation: pulse 2s infinite;
+    }
+
+    .timeline-content {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 20px;
+        width: 45%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .timeline-date {
+        display: inline-block;
+        background: linear-gradient(135deg, #d63447 0%, #ff6b6b 100%);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        font-weight: 600;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 15px rgba(214, 52, 71, 0.3);
+    }
+
+    .timeline-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8em;
+        color: #c94b4b;
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-title {
+        flex-direction: row-reverse;
+    }
+
+    .timeline-icon {
+        display: inline-flex;
+        color: #d63447;
+    }
+
+    .timeline-icon :global(svg) {
+        width: 28px;
+        height: 28px;
+    }
+
+    .timeline-description {
+        font-size: 1.1em;
+        line-height: 1.6;
+        color: #555;
+        margin-top: 10px;
+    }
+
+    .timeline-photo {
+        margin-top: 20px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .timeline-photo img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .timeline-photo img:hover {
+        transform: scale(1.05);
+    }
+
+    .timeline-photos-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .timeline-photos-grid img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+    .timeline-photos-grid img:hover {
+        transform: scale(1.08);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+        color: white;
+        font-size: 1.1em;
+    }
+
+    footer p {
+        margin: 10px 0;
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            box-shadow: 0 0 0 4px rgba(214, 52, 71, 0.2);
+        }
+        50% {
+            box-shadow: 0 0 0 8px rgba(214, 52, 71, 0.4);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .timeline::before {
+            left: 20px;
+        }
+
+        .timeline-marker {
+            left: 20px;
+        }
+
+        .timeline-content {
+            width: calc(100% - 80px);
+            margin-left: auto !important;
+            text-align: left !important;
+        }
+
+        .timeline-title {
+            flex-direction: row !important;
+            font-size: 1.5em;
+        }
+
+        .timeline-photos-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .timeline-photos-grid img {
+            height: 200px;
+        }
+    }
+</style>

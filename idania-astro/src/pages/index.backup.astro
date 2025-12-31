@@ -1,0 +1,840 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Gallery from '../components/Gallery.astro';
+import Playlist from '../components/Playlist.astro';
+import ChildhoodPhotos from '../components/ChildhoodPhotos.astro';
+import OpenWhen from '../components/OpenWhen.astro';
+---
+
+<BaseLayout title="Para Idania ♡">
+    <!-- Pantalla de inicio con animación y login -->
+    <div id="welcomeScreen" class="welcome-screen">
+        <div class="hibiscus-container">
+            <svg viewBox="0 0 800 900" id="hibiscusSvg">
+                <defs>
+                    <!-- Gradientes mejorados -->
+                    <radialGradient id="petalGrad1" cx="30%" cy="30%">
+                        <stop offset="0%" style="stop-color:#ff69b4;stop-opacity:1"/>
+                        <stop offset="40%" style="stop-color:#ff1493;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#c71585;stop-opacity:1"/>
+                    </radialGradient>
+
+                    <radialGradient id="petalGrad2" cx="30%" cy="30%">
+                        <stop offset="0%" style="stop-color:#ff85c1;stop-opacity:1"/>
+                        <stop offset="50%" style="stop-color:#ff1493;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#b01570;stop-opacity:1"/>
+                    </radialGradient>
+
+                    <radialGradient id="centerGrad" cx="50%" cy="50%">
+                        <stop offset="0%" style="stop-color:#fff59d"/>
+                        <stop offset="40%" style="stop-color:#ffd700"/>
+                        <stop offset="100%" style="stop-color:#ff8c00"/>
+                    </radialGradient>
+
+                    <linearGradient id="stemGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#228b22"/>
+                        <stop offset="100%" style="stop-color:#006400"/>
+                    </linearGradient>
+
+                    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#90ee90"/>
+                        <stop offset="50%" style="stop-color:#32cd32"/>
+                        <stop offset="100%" style="stop-color:#228b22"/>
+                    </linearGradient>
+
+                    <linearGradient id="pistilGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                        <stop offset="0%" style="stop-color:#ffd700"/>
+                        <stop offset="50%" style="stop-color:#ff6347"/>
+                        <stop offset="100%" style="stop-color:#dc143c"/>
+                    </linearGradient>
+
+                    <!-- Filtros avanzados -->
+                    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+
+                    <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
+                        <feGaussianBlur stdDeviation="20" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+
+                    <filter id="dropShadow">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+                        <feOffset dx="0" dy="2" result="offsetblur"/>
+                        <feComponentTransfer>
+                            <feFuncA type="linear" slope="0.5"/>
+                        </feComponentTransfer>
+                        <feMerge>
+                            <feMergeNode/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <!-- Resplandor de fondo -->
+                <circle id="bgGlow" cx="400" cy="350" r="200" fill="url(#petalGrad1)" opacity="0" filter="url(#softGlow)"/>
+
+                <!-- Grupo principal -->
+                <g id="flowerGroup" transform="translate(400, 450)">
+                    <!-- Tallo -->
+                    <path id="stem" d="M0,200 Q-5,300 0,450"
+                          stroke="url(#stemGrad)"
+                          stroke-width="12"
+                          fill="none"
+                          stroke-linecap="round"
+                          stroke-dasharray="250"
+                          stroke-dashoffset="250"/>
+
+                    <!-- Hojas -->
+                    <g id="leaves" opacity="0">
+                        <path d="M-40,320 Q-80,320 -90,350 Q-80,380 -40,380 Q-30,350 -40,320 Z"
+                              fill="url(#leafGrad)" filter="url(#dropShadow)"/>
+                        <path d="M40,370 Q80,370 90,400 Q80,430 40,430 Q30,400 40,370 Z"
+                              fill="url(#leafGrad)" filter="url(#dropShadow)"/>
+                    </g>
+
+                    <!-- Flor -->
+                    <g id="flower">
+                        <!-- Pétalos (5 pétalos de hibiscus) -->
+                        <g id="petals">
+                            <path class="petal" data-index="0" opacity="0"
+                                  d="M0,-10 Q-40,-60 -50,-110 Q-40,-150 -10,-170 Q10,-160 20,-140 Q25,-100 15,-60 Q5,-20 0,-10 Z"
+                                  fill="url(#petalGrad1)" filter="url(#dropShadow)" transform="rotate(0)"/>
+                            <path class="petal" data-index="1" opacity="0"
+                                  d="M0,-10 Q-40,-60 -50,-110 Q-40,-150 -10,-170 Q10,-160 20,-140 Q25,-100 15,-60 Q5,-20 0,-10 Z"
+                                  fill="url(#petalGrad2)" filter="url(#dropShadow)" transform="rotate(72)"/>
+                            <path class="petal" data-index="2" opacity="0"
+                                  d="M0,-10 Q-40,-60 -50,-110 Q-40,-150 -10,-170 Q10,-160 20,-140 Q25,-100 15,-60 Q5,-20 0,-10 Z"
+                                  fill="url(#petalGrad1)" filter="url(#dropShadow)" transform="rotate(144)"/>
+                            <path class="petal" data-index="3" opacity="0"
+                                  d="M0,-10 Q-40,-60 -50,-110 Q-40,-150 -10,-170 Q10,-160 20,-140 Q25,-100 15,-60 Q5,-20 0,-10 Z"
+                                  fill="url(#petalGrad2)" filter="url(#dropShadow)" transform="rotate(216)"/>
+                            <path class="petal" data-index="4" opacity="0"
+                                  d="M0,-10 Q-40,-60 -50,-110 Q-40,-150 -10,-170 Q10,-160 20,-140 Q25,-100 15,-60 Q5,-20 0,-10 Z"
+                                  fill="url(#petalGrad1)" filter="url(#dropShadow)" transform="rotate(288)"/>
+                        </g>
+
+                        <!-- Centro de la flor -->
+                        <circle id="center" cx="0" cy="0" r="35" fill="url(#centerGrad)" opacity="0" filter="url(#glow)"/>
+
+                        <!-- Detalles del centro -->
+                        <g id="centerDetails" opacity="0">
+                            <circle cx="-8" cy="-8" r="3" fill="#ff8c00" opacity="0.8"/>
+                            <circle cx="8" cy="-8" r="3" fill="#ff8c00" opacity="0.8"/>
+                            <circle cx="0" cy="8" r="3" fill="#ff8c00" opacity="0.8"/>
+                            <circle cx="-8" cy="8" r="3" fill="#ff8c00" opacity="0.8"/>
+                            <circle cx="8" cy="8" r="3" fill="#ff8c00" opacity="0.8"/>
+                        </g>
+
+                        <!-- Pistilo prominente del hibiscus -->
+                        <g id="pistil" opacity="0">
+                            <!-- Columna estaminal -->
+                            <path d="M-6,-140 L-4,0 L4,0 L6,-140 Z" fill="url(#pistilGrad)" filter="url(#glow)"/>
+
+                            <!-- Estambres a lo largo del pistilo -->
+                            <g id="stamens">
+                                <g class="stamen">
+                                    <circle cx="-12" cy="-120" r="6" fill="#ffd700" filter="url(#glow)"/>
+                                </g>
+                                <g class="stamen">
+                                    <circle cx="12" cy="-115" r="6" fill="#ffd700" filter="url(#glow)"/>
+                                </g>
+                                <g class="stamen">
+                                    <circle cx="-15" cy="-95" r="6" fill="#ffd700" filter="url(#glow)"/>
+                                </g>
+                                <g class="stamen">
+                                    <circle cx="15" cy="-90" r="6" fill="#ffd700" filter="url(#glow)"/>
+                                </g>
+                                <g class="stamen">
+                                    <circle cx="-13" cy="-70" r="6" fill="#ffd700" filter="url(#glow)"/>
+                                </g>
+                                <g class="stamen">
+                                    <circle cx="13" cy="-65" r="6" fill="#ffd700" filter="url(#glow)"/>
+                                </g>
+                            </g>
+
+                            <!-- Estigma (punta del pistilo) -->
+                            <g id="stigma">
+                                <circle cx="-8" cy="-145" r="8" fill="#dc143c" filter="url(#glow)"/>
+                                <circle cx="8" cy="-145" r="8" fill="#dc143c" filter="url(#glow)"/>
+                                <circle cx="0" cy="-155" r="8" fill="#dc143c" filter="url(#glow)"/>
+                                <circle cx="-5" cy="-162" r="7" fill="#b22222" filter="url(#glow)"/>
+                                <circle cx="5" cy="-162" r="7" fill="#b22222" filter="url(#glow)"/>
+                            </g>
+                        </g>
+
+                        <!-- Partículas brillantes -->
+                        <g id="sparkles">
+                            <circle class="sparkle" cx="-60" cy="-80" r="2" fill="#fff" opacity="0"/>
+                            <circle class="sparkle" cx="60" cy="-90" r="2" fill="#fff" opacity="0"/>
+                            <circle class="sparkle" cx="-50" cy="-120" r="2" fill="#fff" opacity="0"/>
+                            <circle class="sparkle" cx="50" cy="-110" r="2" fill="#fff" opacity="0"/>
+                            <circle class="sparkle" cx="0" cy="-140" r="2" fill="#fff" opacity="0"/>
+                            <circle class="sparkle" cx="-70" cy="-50" r="2" fill="#fff" opacity="0"/>
+                            <circle class="sparkle" cx="70" cy="-60" r="2" fill="#fff" opacity="0"/>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Formulario de Login con Acertijos -->
+        <div id="loginForm" class="login-container" style="display: none;">
+            <h2 class="login-title">Descifra el Acceso</h2>
+            <p class="login-subtitle">Resuelve los acertijos para continuar</p>
+
+            <div class="riddle-box">
+                <label class="riddle-label">Acertijo del Usuario:</label>
+                <p class="riddle-text">
+                    "No soy niña ni mujer completa,<br/>
+                    soy juvenil y pequeña con ternura.<br/>
+                    En diminutivo dulce me encontrarás,<br/>
+                    con alegría y juventud en mi figura."
+                </p>
+                <input type="text" id="usernameInput" class="riddle-input" placeholder="¿Quién soy?">
+            </div>
+
+            <div class="riddle-box">
+                <label class="riddle-label">Acertijo de la Contraseña:</label>
+                <p class="riddle-text">
+                    "Cinco letras que describen belleza,<br/>
+                    comienzo con 'L' y termino en 'A'.<br/>
+                    Hermosa, bella, preciosa... más simple,<br/>
+                    soy el elogio que directo está."
+                </p>
+                <input type="password" id="passwordInput" class="riddle-input" placeholder="¿Qué palabra soy?">
+            </div>
+
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+            <button id="loginButton" class="login-button">Entrar</button>
+        </div>
+    </div>
+
+    <!-- Contenido principal (oculto hasta login) -->
+    <div id="mainContent" style="display: none;">
+    <header>
+        <h1>Idania <span class="heart"><i data-lucide="heart"></i></span></h1>
+        <p class="subtitle">Un espacio creado especialmente para ti, en tu color favorito</p>
+        <a href="/timeline" class="timeline-link">
+            <i data-lucide="sparkles"></i> Ver Nuestra Historia <i data-lucide="sparkles"></i>
+        </a>
+    </header>
+
+    <section class="section">
+        <h2>Lo que me gusta de ti</h2>
+        <p>
+            Idania, desde que empezamos a conocernos, no he dejado de sorprenderme con lo <span class="highlight">genial</span> que eres.
+            Tu sonrisa es contagiosa, tu risa hace que cualquier momento se vuelva mejor, y tu forma de ser me tiene totalmente enganchado.
+        </p>
+        <p>
+            Eres una persona <span class="highlight">increíble</span>, con una personalidad que mezcla dulzura y fuerza de una manera única.
+            Me encanta tu inteligencia, tu sentido del humor, y cómo ves la vida.
+            Cada vez que hablamos descubro algo nuevo que me gusta de ti.
+        </p>
+        <div class="quote">
+            "Conocerte ha sido una de las mejores sorpresas de este año"
+        </div>
+        <p>
+            Admiro tu autenticidad y lo <span class="highlight">hermosa</span> que eres, tanto por dentro como por fuera.
+            Me gusta pasar tiempo contigo, conocerte más, y ver a dónde nos lleva esto que estamos construyendo.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Momentos contigo</h2>
+        <Gallery />
+    </section>
+
+    <section class="section childhood-special">
+        <h2>Tus ojos desde siempre</h2>
+        <ChildhoodPhotos />
+    </section>
+
+    <section class="section">
+        <h2>Por qué me gustas tanto</h2>
+        <p>
+            Me gustas porque eres auténtica, sin pretensiones. Desde el primer momento me llamó la atención tu naturalidad.
+            Me encanta cómo tus ojos <span class="highlight">brillan</span> cuando hablas de lo que te apasiona,
+            tu risa espontánea, y esa energía que tienes.
+        </p>
+        <p>
+            Me atrae tu inteligencia, cómo puedes mantener una conversación interesante y al rato estar riéndote sin parar.
+            Tu forma de ser directa, sin rodeos, eso me gusta mucho.
+            Cada vez que quedamos descubro algo nuevo que me hace querer conocerte más.
+        </p>
+        <div class="quote">
+            "Me tienes enganchado con tu forma de ser"
+        </div>
+        <p>
+            Me gusta tu <span class="highlight">actitud</span>, cómo te tomas la vida, y lo bien que la pasamos juntos.
+            Eres divertida, interesante, y me lo paso genial contigo. Definitivamente quiero seguir conociéndote.
+        </p>
+    </section>
+
+    <section class="section apology-section">
+        <h2>Quiero pedirte perdón</h2>
+        <p>
+            Idania, quiero disculparme por cualquier cosa que haya hecho que te molestara o no te hiciera sentir bien.
+            Sé que a veces meto la pata, y si en algún momento mis palabras o acciones no fueron las correctas, lo siento de verdad.
+        </p>
+        <p>
+            Si alguna vez no valoré tu tiempo como debía, o si no presté la atención que merecías, te pido perdón.
+            Nunca fue mi intención hacerte sentir mal. Reconozco que a veces pude haberlo hecho mejor.
+        </p>
+        <div class="quote">
+            "Todos cometemos errores, lo importante es reconocerlos"
+        </div>
+        <p>
+            Estoy aprendiendo cada día a ser mejor, y valoro mucho el tiempo que pasamos juntos.
+            Si cometí algún error que te afectó, espero que puedas perdonarme.
+            Me importas y quiero que esto que tenemos funcione bien.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Canciones que me recuerdan a ti</h2>
+        <p>
+            Cada una de estas canciones tiene algo que me hace pensar en ti, en nosotros, o en momentos que hemos compartido.
+            Sé que te encanta el afrobeat, pero esta playlist es más variada, con canciones que me recuerdan a diferentes momentos contigo.
+            Espero que te gusten tanto como a mí.
+        </p>
+        <Playlist />
+    </section>
+
+    <section class="section open-when-section">
+        <h2>Cartas para ti</h2>
+        <OpenWhen />
+    </section>
+
+    <section class="section">
+        <h2>Para terminar</h2>
+        <p>
+            Idania, conocerte ha sido una <span class="highlight">grata sorpresa</span>.
+            Me gusta mucho cómo van las cosas entre nosotros y tengo ganas de ver qué más viene.
+        </p>
+        <p>
+            Eres una persona genial y me alegro de haberte conocido.
+            Espero que sigamos pasándola bien juntos y que esto siga fluyendo como hasta ahora.
+        </p>
+        <div class="quote">
+            "Vamos paso a paso, pero me gusta el camino que estamos tomando"
+        </div>
+        <p>
+            Mereces estar bien y ser feliz. Me gusta estar contigo y quiero seguir conociéndote más <span class="heart"><i data-lucide="heart"></i></span>
+        </p>
+    </section>
+
+    <footer>
+        <p>Hecho con cariño <span class="heart"><i data-lucide="heart"></i></span></p>
+        <p>Para Idania</p>
+    </footer>
+    </div>
+</BaseLayout>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+    window.addEventListener('load', () => {
+        const hibiscusContainer = document.querySelector('.hibiscus-container');
+
+        // Animación con GSAP (como el archivo original que funcionaba)
+        const tl = gsap.timeline();
+
+        // 1. Resplandor de fondo
+        tl.to("#bgGlow", {
+            opacity: 0.3,
+            scale: 1,
+            duration: 1.5,
+            ease: "power2.out"
+        }, 0);
+
+        // 2. Tallo crece
+        tl.to("#stem", {
+            strokeDashoffset: 0,
+            duration: 1.5,
+            ease: "power2.out"
+        }, 0.2);
+
+        // 3. Hojas aparecen
+        tl.to("#leaves", {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: "back.out(2)"
+        }, 1);
+
+        // 4. Pétalos florecen uno por uno
+        const petals = document.querySelectorAll(".petal");
+        petals.forEach((petal, i) => {
+            tl.to(petal, {
+                opacity: 1,
+                scale: 1,
+                transformOrigin: "center center",
+                duration: 0.9,
+                ease: "elastic.out(1, 0.6)"
+            }, 1.5 + (i * 0.25));
+        });
+
+        // 5. Centro de la flor
+        tl.to("#center", {
+            opacity: 1,
+            scale: 1,
+            duration: 0.7,
+            ease: "elastic.out(1, 0.5)"
+        }, 3.2);
+
+        // 6. Detalles del centro
+        tl.to("#centerDetails", {
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.out"
+        }, 3.5);
+
+        // 7. Pistilo crece
+        tl.to("#pistil", {
+            opacity: 1,
+            scaleY: 1,
+            transformOrigin: "center bottom",
+            duration: 1.2,
+            ease: "power3.out"
+        }, 3.8);
+
+        // 8. Estambres aparecen
+        tl.to(".stamen", {
+            opacity: 1,
+            scale: 1,
+            transformOrigin: "center center",
+            duration: 0.4,
+            stagger: 0.1,
+            ease: "back.out(3)"
+        }, 4.3);
+
+        // 9. Estigma aparece
+        tl.to("#stigma", {
+            scale: 1,
+            transformOrigin: "center center",
+            duration: 0.6,
+            ease: "elastic.out(1, 0.4)"
+        }, 5.2);
+
+        // 10. Partículas brillantes parpadean
+        tl.add(() => {
+            gsap.to(".sparkle", {
+                opacity: 0.9,
+                scale: 1.5,
+                duration: 1.5,
+                stagger: {
+                    each: 0.2,
+                    repeat: -1,
+                    yoyo: true
+                },
+                ease: "sine.inOut"
+            });
+        }, 5.5);
+
+        // 11. Respiración del resplandor
+        tl.add(() => {
+            gsap.to("#bgGlow", {
+                opacity: 0.5,
+                scale: 1.1,
+                duration: 3,
+                yoyo: true,
+                repeat: -1,
+                ease: "sine.inOut"
+            });
+        }, 6);
+
+        // 12. Movimiento suave de la flor
+        tl.add(() => {
+            gsap.to("#flowerGroup", {
+                rotation: 2,
+                transformOrigin: "center bottom",
+                duration: 4,
+                yoyo: true,
+                repeat: -1,
+                ease: "sine.inOut"
+            });
+        }, 6);
+
+        // Después de 7 segundos, mostrar el login
+        setTimeout(() => {
+            gsap.to(hibiscusContainer, {
+                scale: 0.5,
+                y: -150,
+                duration: 1,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    const loginForm = document.getElementById('loginForm');
+                    loginForm.style.display = 'block';
+                    gsap.fromTo(loginForm,
+                        { opacity: 0, y: 50 },
+                        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+                    );
+                }
+            });
+        }, 7000);
+
+        // Sistema de Login
+        function handleLogin() {
+            const username = document.getElementById('usernameInput').value.toLowerCase().trim();
+            const password = document.getElementById('passwordInput').value.toLowerCase().trim();
+            const errorMessage = document.getElementById('errorMessage');
+            const loginContainer = document.querySelector('.login-container');
+
+            if (username === 'muchachita' && password === 'linda') {
+                errorMessage.style.display = 'none';
+
+                // Ocultar la pantalla de bienvenida con GSAP
+                const welcomeScreen = document.getElementById('welcomeScreen');
+                const mainContent = document.getElementById('mainContent');
+
+                gsap.to(welcomeScreen, {
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.inOut",
+                    onComplete: () => {
+                        welcomeScreen.style.display = 'none';
+                        mainContent.style.display = 'block';
+                        gsap.fromTo(mainContent,
+                            { opacity: 0 },
+                            { opacity: 1, duration: 1, ease: "power2.out" }
+                        );
+                    }
+                });
+            } else {
+                errorMessage.textContent = 'Respuestas incorrectas. Piensa en los acertijos...';
+                errorMessage.style.display = 'block';
+
+                // Shake animation con GSAP
+                gsap.to(loginContainer, {
+                    x: [-10, 10, -10, 10, 0],
+                    duration: 0.5,
+                    ease: "power2.inOut"
+                });
+            }
+        }
+
+        // Event listeners
+        const loginButton = document.getElementById('loginButton');
+        const passwordInput = document.getElementById('passwordInput');
+
+        loginButton.addEventListener('click', handleLogin);
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+    });
+</script>
+
+<style>
+    header {
+        text-align: center;
+        padding: 60px 20px;
+        animation: fadeInDown 1s ease;
+    }
+
+    h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 4em;
+        color: white;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        margin-bottom: 20px;
+    }
+
+    .subtitle {
+        font-size: 1.5em;
+        color: #ffe6f0;
+        font-weight: 300;
+    }
+
+    .timeline-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 30px;
+        padding: 15px 40px;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        font-size: 1.1em;
+        font-weight: 600;
+    }
+
+    .timeline-link:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .timeline-link :global(svg) {
+        width: 20px;
+        height: 20px;
+    }
+
+    .section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 30px;
+        padding: 50px;
+        margin: 40px 0;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 1s ease;
+        backdrop-filter: blur(10px);
+    }
+
+    .section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5em;
+        color: #c94b4b;
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    .section h2::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #d63447 0%, #ff6b6b 100%);
+        margin: 15px auto 0;
+        border-radius: 2px;
+    }
+
+    .section p {
+        font-size: 1.2em;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
+    .quote {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5em;
+        font-style: italic;
+        color: #c94b4b;
+        text-align: center;
+        margin: 30px 0;
+        padding: 20px;
+        border-left: 4px solid #d63447;
+        background: rgba(214, 52, 71, 0.1);
+    }
+
+    .apology-section {
+        background: linear-gradient(135deg, rgba(255, 182, 193, 0.95) 0%, rgba(255, 218, 224, 0.95) 100%);
+    }
+
+    .childhood-special {
+        background: linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 250, 240, 0.95) 100%);
+        border: 2px solid rgba(214, 52, 71, 0.1);
+    }
+
+    .open-when-section {
+        background: linear-gradient(135deg, rgba(255, 235, 245, 0.95) 0%, rgba(240, 230, 255, 0.95) 100%);
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Estilos para la pantalla de bienvenida */
+    .welcome-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 50%, #0d2035 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        overflow: hidden;
+    }
+
+    .hibiscus-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 50px;
+        transition: transform 1s ease-in-out;
+    }
+
+    #hibiscusSvg {
+        width: 800px;
+        height: 900px;
+        overflow: visible;
+    }
+
+    /* Estilos para el formulario de login */
+    .login-container {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 30px;
+        padding: 40px 50px;
+        max-width: 600px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .login-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5em;
+        color: #c94b4b;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .login-subtitle {
+        text-align: center;
+        color: #666;
+        font-size: 1.1em;
+        margin-bottom: 30px;
+        font-style: italic;
+    }
+
+    .riddle-box {
+        background: linear-gradient(135deg, rgba(255, 240, 245, 0.8) 0%, rgba(255, 250, 240, 0.8) 100%);
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 2px solid rgba(214, 52, 71, 0.2);
+    }
+
+    .riddle-label {
+        font-weight: 600;
+        color: #c94b4b;
+        font-size: 1.2em;
+        display: block;
+        margin-bottom: 15px;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .riddle-text {
+        font-family: 'Georgia', serif;
+        font-size: 1.1em;
+        color: #555;
+        line-height: 1.8;
+        font-style: italic;
+        margin-bottom: 20px;
+        text-align: center;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 10px;
+        border-left: 4px solid #d63447;
+    }
+
+    .riddle-input {
+        width: 100%;
+        padding: 15px 20px;
+        border: 2px solid rgba(214, 52, 71, 0.3);
+        border-radius: 10px;
+        font-size: 1.1em;
+        font-family: inherit;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .riddle-input:focus {
+        outline: none;
+        border-color: #c94b4b;
+        box-shadow: 0 0 15px rgba(201, 75, 75, 0.2);
+    }
+
+    .login-button {
+        width: 100%;
+        padding: 18px;
+        background: linear-gradient(135deg, #d63447 0%, #ff6b6b 100%);
+        color: white;
+        border: none;
+        border-radius: 15px;
+        font-size: 1.3em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        font-family: 'Playfair Display', serif;
+        box-shadow: 0 5px 20px rgba(214, 52, 71, 0.3);
+    }
+
+    .login-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(214, 52, 71, 0.5);
+        background: linear-gradient(135deg, #ff6b6b 0%, #d63447 100%);
+    }
+
+    .login-button:active {
+        transform: translateY(0);
+    }
+
+    .error-message {
+        background: rgba(214, 52, 71, 0.1);
+        color: #c94b4b;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        margin-top: 20px;
+        font-weight: 500;
+        border: 2px solid rgba(214, 52, 71, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        #hibiscusSvg {
+            width: 400px;
+            height: 500px;
+        }
+
+        .login-container {
+            padding: 30px 25px;
+        }
+
+        .login-title {
+            font-size: 2em;
+        }
+
+        .riddle-text {
+            font-size: 1em;
+        }
+    }
+
+
+    /* Animación shake para error */
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        50% { transform: translateX(10px); }
+        75% { transform: translateX(-10px); }
+    }
+</style>

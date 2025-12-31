@@ -1,0 +1,32 @@
+---
+// Spotify playlist embed
+const spotifyPlaylistId = "4X1L2P7wrfWls9u90HMLD9";
+---
+
+<div class="spotify-container">
+    <iframe
+        style="border-radius:12px"
+        src={`https://open.spotify.com/embed/playlist/${spotifyPlaylistId}?utm_source=generator`}
+        width="100%"
+        height="380"
+        frameBorder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+    ></iframe>
+</div>
+
+<style>
+    .spotify-container {
+        width: 100%;
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    @media (max-width: 768px) {
+        .spotify-container {
+            padding: 0 10px;
+        }
+    }
+</style>

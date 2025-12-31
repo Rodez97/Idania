@@ -1,0 +1,613 @@
+[
+  {
+    "filename": "IMG_5664.jpg",
+    "original_filename": "IMG_5664.HEIC",
+    "date": "06/09/2025 23:08",
+    "location": {
+      "lat": 41.528058,
+      "lon": 2.432111
+    },
+    "location_name": "Mataró, España",
+    "camera": "iPhone 15",
+    "width": 4032,
+    "height": 3024
+  },
+  {
+    "filename": "IMG_5703.jpg",
+    "original_filename": "IMG_5703.HEIC",
+    "date": "28/09/2025 14:39",
+    "location": {
+      "lat": 41.536522,
+      "lon": 2.445028
+    },
+    "location_name": "Mataró, España",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_5718.jpg",
+    "original_filename": "IMG_5718.HEIC",
+    "date": "28/09/2025 17:56",
+    "location": {
+      "lat": 41.41215,
+      "lon": 2.132111
+    },
+    "location_name": "Barcelona, España",
+    "camera": "iPhone 15",
+    "width": 4032,
+    "height": 3024
+  },
+  {
+    "filename": "IMG_5787.jpg",
+    "original_filename": "IMG_5787.HEIC",
+    "date": "28/09/2025 19:03",
+    "location": {
+      "lat": 41.412178,
+      "lon": 2.132067
+    },
+    "location_name": "Barcelona, España",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_5904.jpg",
+    "original_filename": "IMG_5904.HEIC",
+    "date": "28/09/2025 22:17",
+    "location": {
+      "lat": 41.388067,
+      "lon": 2.167575
+    },
+    "location_name": "Barcelona, España",
+    "camera": "iPhone 15",
+    "width": 4032,
+    "height": 3024
+  },
+  {
+    "filename": "IMG_6028.jpg",
+    "original_filename": "IMG_6028.HEIC",
+    "date": "12/10/2025 19:12",
+    "location": {
+      "lat": 41.391433,
+      "lon": 2.164558
+    },
+    "location_name": "Barcelona, España",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_6138.jpg",
+    "original_filename": "IMG_6138.PNG",
+    "date": "12/10/2025 21:54",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  },
+  {
+    "filename": "IMG_6234.jpg",
+    "original_filename": "IMG_6234.HEIC",
+    "date": "25/10/2025 22:32",
+    "location": {
+      "lat": 41.546153,
+      "lon": 2.43245
+    },
+    "location_name": "Mataró, España",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_6322.jpg",
+    "original_filename": "IMG_6322.HEIC",
+    "date": "01/11/2025 23:16",
+    "location": {
+      "lat": 41.547542,
+      "lon": 2.433992
+    },
+    "location_name": "Mataró, España",
+    "camera": "iPhone 15",
+    "width": 4032,
+    "height": 3024
+  },
+  {
+    "filename": "IMG_6363.jpg",
+    "original_filename": "IMG_6363.HEIC",
+    "date": "02/11/2025 03:25",
+    "location": {
+      "lat": 41.533406,
+      "lon": 2.431256
+    },
+    "location_name": "Mataró, España",
+    "camera": "iPhone 15",
+    "width": 4032,
+    "height": 3024
+  },
+  {
+    "filename": "IMG_6571.jpg",
+    "original_filename": "IMG_6571.HEIC",
+    "date": "20/11/2025 01:10",
+    "location": {
+      "lat": 41.548,
+      "lon": 2.436161
+    },
+    "location_name": "Mataró, España",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_6600.jpg",
+    "original_filename": "IMG_6600.HEIC",
+    "date": "23/11/2025 17:42",
+    "location": {
+      "lat": 41.545811,
+      "lon": 2.433836
+    },
+    "location_name": "Mataró, España",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_6683.jpg",
+    "original_filename": "IMG_6683.HEIC",
+    "date": "29/11/2025 21:51",
+    "location": {
+      "lat": 41.527967,
+      "lon": 2.432242
+    },
+    "location_name": "Mataró, España",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_6789.jpg",
+    "original_filename": "IMG_6789.HEIC",
+    "date": "04/12/2025 06:23",
+    "location": {
+      "lat": 41.291456,
+      "lon": 2.074772
+    },
+    "location_name": "el Prat de Llobregat, España",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_6983.jpg",
+    "original_filename": "IMG_6983.HEIC",
+    "date": "04/12/2025 11:25",
+    "location": {
+      "lat": 50.846856,
+      "lon": 4.351919
+    },
+    "location_name": "Bruselas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4032,
+    "height": 3024
+  },
+  {
+    "filename": "IMG_7017.jpg",
+    "original_filename": "IMG_7017.HEIC",
+    "date": "04/12/2025 11:32",
+    "location": {
+      "lat": 50.846731,
+      "lon": 4.352419
+    },
+    "location_name": "Bruselas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4032,
+    "height": 3024
+  },
+  {
+    "filename": "IMG_7045.jpg",
+    "original_filename": "IMG_7045.PNG",
+    "date": "04/12/2025 12:27",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  },
+  {
+    "filename": "IMG_7056.jpg",
+    "original_filename": "IMG_7056.PNG",
+    "date": "04/12/2025 12:31",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  },
+  {
+    "filename": "IMG_7156.jpg",
+    "original_filename": "IMG_7156.HEIC",
+    "date": "04/12/2025 14:53",
+    "location": {
+      "lat": 50.846608,
+      "lon": 4.351492
+    },
+    "location_name": "Bruselas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4032,
+    "height": 3024
+  },
+  {
+    "filename": "IMG_7186.jpg",
+    "original_filename": "IMG_7186.PNG",
+    "date": "04/12/2025 15:42",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  },
+  {
+    "filename": "IMG_7192.jpg",
+    "original_filename": "IMG_7192.PNG",
+    "date": "04/12/2025 15:48",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  },
+  {
+    "filename": "IMG_7232.jpg",
+    "original_filename": "IMG_7232.HEIC",
+    "date": "04/12/2025 18:57",
+    "location": {
+      "lat": 50.846897,
+      "lon": 4.351764
+    },
+    "location_name": "Bruselas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4032,
+    "height": 3024
+  },
+  {
+    "filename": "IMG_7294.jpg",
+    "original_filename": "IMG_7294.HEIC",
+    "date": "04/12/2025 19:29",
+    "location": {
+      "lat": 50.846703,
+      "lon": 4.353722
+    },
+    "location_name": "Bruselas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 2316,
+    "height": 3088
+  },
+  {
+    "filename": "IMG_7335.jpg",
+    "original_filename": "IMG_7335.HEIC",
+    "date": "05/12/2025 14:03",
+    "location": {
+      "lat": 51.199733,
+      "lon": 3.22015
+    },
+    "location_name": "Brujas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_7543.jpg",
+    "original_filename": "IMG_7543.HEIC",
+    "date": "05/12/2025 19:02",
+    "location": {
+      "lat": 51.204992,
+      "lon": 3.217639
+    },
+    "location_name": "Brujas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_7558.jpg",
+    "original_filename": "IMG_7558.HEIC",
+    "date": "05/12/2025 19:51",
+    "location": {
+      "lat": 51.201953,
+      "lon": 3.218894
+    },
+    "location_name": "Brujas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_7606.jpg",
+    "original_filename": "IMG_7606.HEIC",
+    "date": "05/12/2025 22:49",
+    "location": {
+      "lat": 51.209275,
+      "lon": 3.224481
+    },
+    "location_name": "Brujas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_7729.jpg",
+    "original_filename": "IMG_7729.HEIC",
+    "date": "06/12/2025 00:10",
+    "location": {
+      "lat": 51.211194,
+      "lon": 3.226156
+    },
+    "location_name": "Brujas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_7744.jpg",
+    "original_filename": "IMG_7744.PNG",
+    "date": "06/12/2025 00:26",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  },
+  {
+    "filename": "IMG_7756.jpg",
+    "original_filename": "IMG_7756.PNG",
+    "date": "06/12/2025 00:57",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  },
+  {
+    "filename": "IMG_7796.jpg",
+    "original_filename": "IMG_7796.PNG",
+    "date": "06/12/2025 11:13",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  },
+  {
+    "filename": "IMG_7825.jpg",
+    "original_filename": "IMG_7825.HEIC",
+    "date": "06/12/2025 11:21",
+    "location": {
+      "lat": 51.211647,
+      "lon": 3.225853
+    },
+    "location_name": "Brujas, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_7867.jpg",
+    "original_filename": "IMG_7867.HEIC",
+    "date": "06/12/2025 16:53",
+    "location": {
+      "lat": 51.065678,
+      "lon": 3.721942
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_7888.jpg",
+    "original_filename": "IMG_7888.HEIC",
+    "date": "06/12/2025 17:37",
+    "location": {
+      "lat": 51.056867,
+      "lon": 3.721133
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_7936.jpg",
+    "original_filename": "IMG_7936.HEIC",
+    "date": "06/12/2025 17:42",
+    "location": {
+      "lat": 51.056706,
+      "lon": 3.721275
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_7964.jpg",
+    "original_filename": "IMG_7964.PNG",
+    "date": "06/12/2025 18:55",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  },
+  {
+    "filename": "IMG_7967.jpg",
+    "original_filename": "IMG_7967.PNG",
+    "date": "06/12/2025 19:00",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  },
+  {
+    "filename": "IMG_7989.jpg",
+    "original_filename": "IMG_7989.HEIC",
+    "date": "06/12/2025 19:31",
+    "location": {
+      "lat": 51.0554,
+      "lon": 3.720492
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_8018.jpg",
+    "original_filename": "IMG_8018.HEIC",
+    "date": "06/12/2025 19:39",
+    "location": {
+      "lat": 51.055153,
+      "lon": 3.720408
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_8118.jpg",
+    "original_filename": "IMG_8118.HEIC",
+    "date": "07/12/2025 10:33",
+    "location": {
+      "lat": 51.057617,
+      "lon": 3.719892
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_8125.jpg",
+    "original_filename": "IMG_8125.HEIC",
+    "date": "07/12/2025 10:34",
+    "location": {
+      "lat": 51.057617,
+      "lon": 3.719892
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_8182.jpg",
+    "original_filename": "IMG_8182.HEIC",
+    "date": "07/12/2025 10:59",
+    "location": {
+      "lat": 51.057228,
+      "lon": 3.720747
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_8218.jpg",
+    "original_filename": "IMG_8218.HEIC",
+    "date": "07/12/2025 11:04",
+    "location": {
+      "lat": 51.057067,
+      "lon": 3.720778
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_8310.jpg",
+    "original_filename": "IMG_8310.HEIC",
+    "date": "07/12/2025 11:13",
+    "location": {
+      "lat": 51.057067,
+      "lon": 3.720819
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_8425.jpg",
+    "original_filename": "IMG_8425.HEIC",
+    "date": "07/12/2025 11:32",
+    "location": {
+      "lat": 51.056872,
+      "lon": 3.720222
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_8484.jpg",
+    "original_filename": "IMG_8484.HEIC",
+    "date": "07/12/2025 11:38",
+    "location": {
+      "lat": 51.057111,
+      "lon": 3.720281
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 4284,
+    "height": 5712
+  },
+  {
+    "filename": "IMG_8581.jpg",
+    "original_filename": "IMG_8581.HEIC",
+    "date": "07/12/2025 11:47",
+    "location": {
+      "lat": 51.057378,
+      "lon": 3.720956
+    },
+    "location_name": "Gante, Bélgica",
+    "camera": "iPhone 15",
+    "width": 3024,
+    "height": 4032
+  },
+  {
+    "filename": "IMG_8707.jpg",
+    "original_filename": "IMG_8707.PNG",
+    "date": "07/12/2025 12:36",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 910,
+    "height": 1336
+  },
+  {
+    "filename": "IMG_8714.jpg",
+    "original_filename": "IMG_8714.PNG",
+    "date": "07/12/2025 12:53",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2071
+  },
+  {
+    "filename": "IMG_8787.jpg",
+    "original_filename": "IMG_8787.PNG",
+    "date": "07/12/2025 18:43",
+    "location": null,
+    "location_name": null,
+    "camera": null,
+    "width": 1179,
+    "height": 2556
+  }
+]

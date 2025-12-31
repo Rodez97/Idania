@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Idania ♡</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #c94b4b 0%, #4a148c 50%, #d63447 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(255, 255, 255, 0.8); }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #ffe6f0;
+            font-weight: 300;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 40px 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: #c94b4b;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #d63447 0%, #ff6b6b 100%);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .section p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            color: white;
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .photo-overlay {
+            transform: translateY(0);
+        }
+
+        .photo-date {
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .photo-date svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .heart {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #d63447;
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        .heart svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20%, 40% { transform: scale(1); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            font-style: italic;
+            color: #c94b4b;
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 4px solid #d63447;
+            background: rgba(214, 52, 71, 0.1);
+        }
+
+        .apology-section {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.95) 0%, rgba(255, 218, 224, 0.95) 100%);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #d63447 0%, #ff6b6b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+        .timeline-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .timeline-link svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .timeline-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .playlist {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(214, 52, 71, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border-left: 3px solid #d63447;
+        }
+
+        .playlist-item:hover {
+            background: rgba(214, 52, 71, 0.1);
+            transform: translateX(5px);
+        }
+
+        .playlist-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: #d63447;
+            font-weight: 700;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .playlist-info {
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        .playlist-song {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .playlist-artist {
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .playlist-icon {
+            color: #d63447;
+            margin-left: 15px;
+        }
+
+        .playlist-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <div class="container">
+        <header>
+            <h1>Idania <span class="heart"><i data-lucide="heart"></i></span></h1>
+            <p class="subtitle">Un espacio creado especialmente para ti, en tu color favorito</p>
+            <a href="timeline.html" class="timeline-link"><i data-lucide="sparkles"></i> Ver Nuestra Historia <i data-lucide="sparkles"></i></a>
+        </header>
+
+        <section class="section">
+            <h2>Lo que me gusta de ti</h2>
+            <p>
+                Idania, desde que empezamos a conocernos, no he dejado de sorprenderme con lo <span class="highlight">genial</span> que eres.
+                Tu sonrisa es contagiosa, tu risa hace que cualquier momento se vuelva mejor, y tu forma de ser me tiene totalmente enganchado.
+            </p>
+            <p>
+                Eres una persona <span class="highlight">increíble</span>, con una personalidad que mezcla dulzura y fuerza de una manera única.
+                Me encanta tu inteligencia, tu sentido del humor, y cómo ves la vida.
+                Cada vez que hablamos descubro algo nuevo que me gusta de ti.
+            </p>
+            <div class="quote">
+                "Conocerte ha sido una de las mejores sorpresas de este año"
+            </div>
+            <p>
+                Admiro tu autenticidad y lo <span class="highlight">hermosa</span> que eres, tanto por dentro como por fuera.
+                Me gusta pasar tiempo contigo, conocerte más, y ver a dónde nos lleva esto que estamos construyendo.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>Momentos contigo</h2>
+            <div class="gallery" id="photoGallery">
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_6138.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>12/10/2025 21:54</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_6600.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_6683.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_6789.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7045.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>04/12/2025 12:27</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7056.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>04/12/2025 12:31</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7186.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>04/12/2025 15:42</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7192.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>04/12/2025 15:48</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7294.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7543.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7729.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7744.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>06/12/2025 00:26</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7756.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>06/12/2025 00:57</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7796.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>06/12/2025 11:13</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7867.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7964.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>06/12/2025 18:55</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_7967.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>06/12/2025 19:00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_8118.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_8125.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_8218.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_8581.jpg" alt="Idania" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_8707.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>07/12/2025 12:36</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_8714.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>07/12/2025 12:53</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="Photos-1-001/IMG_8787.PNG" alt="Idania" loading="lazy">
+                    <div class="photo-overlay">
+                        <div class="photo-date">
+                            <i data-lucide="calendar"></i>
+                            <span>07/12/2025 18:43</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Por qué me gustas tanto</h2>
+            <p>
+                Me gustas porque eres auténtica, sin pretensiones. Desde el primer momento me llamó la atención tu naturalidad.
+                Me encanta cómo tus ojos <span class="highlight">brillan</span> cuando hablas de lo que te apasiona,
+                tu risa espontánea, y esa energía que tienes.
+            </p>
+            <p>
+                Me atrae tu inteligencia, cómo puedes mantener una conversación interesante y al rato estar riéndote sin parar.
+                Tu forma de ser directa, sin rodeos, eso me gusta mucho.
+                Cada vez que quedamos descubro algo nuevo que me hace querer conocerte más.
+            </p>
+            <div class="quote">
+                "Me tienes enganchado con tu forma de ser"
+            </div>
+            <p>
+                Me gusta tu <span class="highlight">actitud</span>, cómo te tomas la vida, y lo bien que la pasamos juntos.
+                Eres divertida, interesante, y me lo paso genial contigo. Definitivamente quiero seguir conociéndote.
+            </p>
+        </section>
+
+        <section class="section apology-section">
+            <h2>Quiero pedirte perdón</h2>
+            <p>
+                Idania, quiero disculparme por cualquier cosa que haya hecho que te molestara o no te hiciera sentir bien.
+                Sé que a veces meto la pata, y si en algún momento mis palabras o acciones no fueron las correctas, lo siento de verdad.
+            </p>
+            <p>
+                Si alguna vez no valoré tu tiempo como debía, o si no presté la atención que merecías, te pido perdón.
+                Nunca fue mi intención hacerte sentir mal. Reconozco que a veces pude haberlo hecho mejor.
+            </p>
+            <div class="quote">
+                "Todos cometemos errores, lo importante es reconocerlos"
+            </div>
+            <p>
+                Estoy aprendiendo cada día a ser mejor, y valoro mucho el tiempo que pasamos juntos.
+                Si cometí algún error que te afectó, espero que puedas perdonarme.
+                Me importas y quiero que esto que tenemos funcione bien.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>Canciones que me recuerdan a ti</h2>
+            <p>
+                Cada una de estas canciones tiene algo que me hace pensar en ti, en nosotros, o en momentos que hemos compartido.
+                Sé que te encanta el afrobeat, pero esta playlist es más variada, con canciones que me recuerdan a diferentes momentos contigo.
+                Espero que te gusten tanto como a mí.
+            </p>
+            <ul class="playlist">
+                <li class="playlist-item">
+                    <span class="playlist-number">1</span>
+                    <div class="playlist-info">
+                        <div class="playlist-song">Falling</div>
+                        <div class="playlist-artist">Trevor Daniel</div>
+                    </div>
+                    <span class="playlist-icon"><i data-lucide="music"></i></span>
+                </li>
+                <li class="playlist-item">
+                    <span class="playlist-number">2</span>
+                    <div class="playlist-info">
+                        <div class="playlist-song">Sweet but Psycho</div>
+                        <div class="playlist-artist">Ava Max</div>
+                    </div>
+                    <span class="playlist-icon"><i data-lucide="music"></i></span>
+                </li>
+                <li class="playlist-item">
+                    <span class="playlist-number">3</span>
+                    <div class="playlist-info">
+                        <div class="playlist-song">Algo Me Gusta De Ti</div>
+                        <div class="playlist-artist">Wisin & Yandel, Chris Brown, T-Pain</div>
+                    </div>
+                    <span class="playlist-icon"><i data-lucide="music"></i></span>
+                </li>
+                <li class="playlist-item">
+                    <span class="playlist-number">4</span>
+                    <div class="playlist-info">
+                        <div class="playlist-song">Ay Vamos</div>
+                        <div class="playlist-artist">J Balvin</div>
+                    </div>
+                    <span class="playlist-icon"><i data-lucide="music"></i></span>
+                </li>
+                <li class="playlist-item">
+                    <span class="playlist-number">5</span>
+                    <div class="playlist-info">
+                        <div class="playlist-song">32 escaleras (feat. Dani Martin)</div>
+                        <div class="playlist-artist">Rulo y la contrabanda, Dani Martin</div>
+                    </div>
+                    <span class="playlist-icon"><i data-lucide="music"></i></span>
+                </li>
+                <li class="playlist-item">
+                    <span class="playlist-number">6</span>
+                    <div class="playlist-info">
+                        <div class="playlist-song">Poesia</div>
+                        <div class="playlist-artist">Los Aldeanos, Silvito El Libre, Charly Mucharrima</div>
+                    </div>
+                    <span class="playlist-icon"><i data-lucide="music"></i></span>
+                </li>
+                <li class="playlist-item">
+                    <span class="playlist-number">7</span>
+                    <div class="playlist-info">
+                        <div class="playlist-song">Adore You</div>
+                        <div class="playlist-artist">Harry Styles</div>
+                    </div>
+                    <span class="playlist-icon"><i data-lucide="music"></i></span>
+                </li>
+                <li class="playlist-item">
+                    <span class="playlist-number">8</span>
+                    <div class="playlist-info">
+                        <div class="playlist-song">Dandelions</div>
+                        <div class="playlist-artist">Ruth B.</div>
+                    </div>
+                    <span class="playlist-icon"><i data-lucide="music"></i></span>
+                </li>
+                <li class="playlist-item">
+                    <span class="playlist-number">9</span>
+                    <div class="playlist-info">
+                        <div class="playlist-song">Todo</div>
+                        <div class="playlist-artist">Pereza</div>
+                    </div>
+                    <span class="playlist-icon"><i data-lucide="music"></i></span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Para terminar</h2>
+            <p>
+                Idania, conocerte ha sido una <span class="highlight">grata sorpresa</span>.
+                Me gusta mucho cómo van las cosas entre nosotros y tengo ganas de ver qué más viene.
+            </p>
+            <p>
+                Eres una persona genial y me alegro de haberte conocido.
+                Espero que sigamos pasándola bien juntos y que esto siga fluyendo como hasta ahora.
+            </p>
+            <div class="quote">
+                "Vamos paso a paso, pero me gusta el camino que estamos tomando"
+            </div>
+            <p>
+                Mereces estar bien y ser feliz. Me gusta estar contigo y quiero seguir conociéndote más <span class="heart"><i data-lucide="heart"></i></span>
+            </p>
+        </section>
+
+        <footer>
+            <p>Hecho con cariño <span class="heart"><i data-lucide="heart"></i></span></p>
+            <p>Para Idania</p>
+        </footer>
+    </div>
+
+    <script>
+        // Crear estrellas
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Crear corazones flotantes
+        const heartsContainer = document.getElementById('floatingHearts');
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '♡';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }, 800);
+
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
+    </script>
+</body>
+</html>
