@@ -422,11 +422,101 @@
         }
 
         @media (max-width: 768px) {
-            h1 { font-size: 3em; }
-            h2 { font-size: 2.5em; }
-            .content { font-size: 1.2em; }
-            .photo-gallery { grid-template-columns: repeat(2, 1fr); }
-            .slide { padding: 40px 20px; }
+            h1 {
+                font-size: 2.5em;
+                margin-bottom: 20px;
+            }
+            h2 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
+            h3 {
+                font-size: 1.5em;
+            }
+            .content {
+                font-size: 1em;
+                line-height: 1.6;
+            }
+            .content-large {
+                font-size: 1.1em;
+            }
+            .content li, .content-large li {
+                margin: 15px 0;
+                padding: 15px 20px;
+                font-size: 0.95em;
+            }
+            .photo-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .photo-item {
+                height: 180px;
+            }
+            .slide {
+                padding: 30px 15px;
+                padding-bottom: 100px;
+            }
+            .navigation {
+                bottom: 20px;
+                right: 20px;
+                gap: 10px;
+            }
+            button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+            .slide-counter {
+                bottom: 20px;
+                left: 20px;
+                font-size: 1em;
+                padding: 10px 15px;
+            }
+            .timeline-item {
+                flex-direction: column !important;
+            }
+            .timeline-content {
+                padding: 20px;
+            }
+            .timeline-date {
+                font-size: 1em;
+            }
+            .timeline-title {
+                font-size: 1.2em;
+            }
+            .timeline-description {
+                font-size: 1em;
+            }
+            .text-block {
+                padding: 20px 25px;
+            }
+            .subtitle {
+                font-size: 1.2em;
+            }
+            .heart {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.6em;
+            }
+            .content {
+                font-size: 0.9em;
+            }
+            .photo-gallery {
+                grid-template-columns: 1fr;
+            }
+            .photo-item {
+                height: 250px;
+            }
+            button {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
