@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FlowerLogin from '../components/FlowerLogin.astro';
 import Gallery from '../components/Gallery.astro';
 import Playlist from '../components/Playlist.astro';
 import ChildhoodPhotos from '../components/ChildhoodPhotos.astro';
@@ -8,12 +7,12 @@ import OpenWhen from '../components/OpenWhen.astro';
 ---
 
 <BaseLayout title="Para Idania ♡">
-    <!-- Animación de entrada con login -->
-    <FlowerLogin />
-
-    <!-- Contenido principal (oculto hasta login) -->
-    <div id="mainContent" style="display: none;">
+    <!-- Contenido principal -->
+    <div id="mainContent">
         <header>
+            <a href="/api/auth/logout" class="logout-btn" title="Cerrar sesión">
+                <i data-lucide="log-out"></i>
+            </a>
             <h1>Idania <span class="heart"><i data-lucide="heart"></i></span></h1>
             <p class="subtitle">Un espacio creado especialmente para ti, en tu color favorito</p>
             <a href="/timeline" class="timeline-link">
@@ -137,6 +136,37 @@ import OpenWhen from '../components/OpenWhen.astro';
         text-align: center;
         padding: 60px 20px;
         animation: fadeInDown 1s ease;
+        position: relative;
+    }
+
+    .logout-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        color: white;
+        text-decoration: none;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px) rotate(15deg);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .logout-btn :global(svg) {
+        width: 24px;
+        height: 24px;
     }
 
     h1 {

@@ -1,0 +1,400 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSession } from '../lib/session';
+import { dbOperations } from '../lib/db';
+import UserSelection from '../components/UserSelection.astro';
+import FilesViewHeader from '../components/FilesViewHeader.astro';
+import FilesGrid from '../components/FilesGrid.astro';
+import FilePreviewModal from '../components/FilePreviewModal.astro';
+
+// Verificar sesión
+const session = getSession(Astro.cookies);
+if (!session) {
+  return Astro.redirect('/api/auth/login');
+}
+
+// Capa de seguridad adicional: solo permitir acceso a alexdrodez@gmail.com
+const currentUser = await dbOperations.getUserById(session.userId);
+if (!currentUser || currentUser.email !== 'alexdrodez@gmail.com') {
+  return Astro.redirect('/dashboard');
+}
+
+// Obtener todos los usuarios de la base de datos
+const allUsers = await dbOperations.getAllUsers();
+---
+
+<BaseLayout title="Archivos Privados">
+  <div class="files-container">
+    <!-- User selection screen -->
+    <UserSelection users={allUsers} />
+
+    <!-- Files view (hidden initially) -->
+    <div id="filesView" class="files-view" style="display: none;">
+      <FilesViewHeader />
+      <FilesGrid />
+    </div>
+
+    <!-- Preview modal -->
+    <FilePreviewModal />
+  </div>
+
+  <script>
+    import { formatFileSize, formatDate, truncateFilename } from '../lib/drive-viewer';
+
+    // Declarar tipos globales
+    declare const lucide: any;
+
+    // Global state
+    let selectedUserId: string | null = null;
+    let currentFiles: any[] = [];
+    let nextPageToken: string | null = null;
+    let prevPageTokens: string[] = [];
+    let currentQuery = '';
+    let currentFilter = 'media';
+    let currentSort = 'modifiedTime desc';
+    let isLoading = false;
+    let currentFileIndex = -1;
+
+    // DOM elements
+    const userSelection = document.getElementById('userSelection')!;
+    const filesView = document.getElementById('filesView')!;
+    const userCards = document.querySelectorAll('.user-card');
+    const backToUsers = document.getElementById('backToUsers')!;
+    const currentUserName = document.getElementById('currentUserName')!;
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    const filterType = document.getElementById('filterType') as HTMLSelectElement;
+    const sortOrder = document.getElementById('sortOrder') as HTMLSelectElement;
+    const fileListContainer = document.getElementById('fileListContainer')!;
+    const paginationText = document.getElementById('paginationText')!;
+    const prevBtn = document.getElementById('prevBtn') as HTMLButtonElement;
+    const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement;
+    const previewModal = document.getElementById('previewModal')!;
+    const modalBackdrop = previewModal?.querySelector('.modal-backdrop')!;
+    const modalClose = document.getElementById('modalClose')!;
+    const modalTitle = document.getElementById('modalTitle')!;
+    const modalBody = document.getElementById('modalBody')!;
+    const modalFooter = document.getElementById('modalFooter')!;
+    const modalDownload = document.getElementById('modalDownload') as HTMLAnchorElement;
+    const prevFileBtn = document.getElementById('prevFileBtn')!;
+    const nextFileBtn = document.getElementById('nextFileBtn')!;
+
+    // User selection handler
+    userCards.forEach(card => {
+      card.addEventListener('click', () => {
+        selectedUserId = (card as HTMLElement).dataset.userId!;
+        const userName = (card as HTMLElement).dataset.userName!;
+        currentUserName.textContent = userName;
+
+        userSelection.style.display = 'none';
+        filesView.style.display = 'block';
+
+        loadFiles(true);
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      });
+    });
+
+    // Back to user selection
+    backToUsers?.addEventListener('click', () => {
+      selectedUserId = null;
+      currentFiles = [];
+      nextPageToken = null;
+      prevPageTokens = [];
+
+      filesView.style.display = 'none';
+      userSelection.style.display = 'block';
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+
+    // Search with debounce
+    let searchTimeout: number;
+    function debounceSearch() {
+      clearTimeout(searchTimeout);
+      searchTimeout = window.setTimeout(() => {
+        currentQuery = searchInput.value.trim();
+        loadFiles(true);
+      }, 300);
+    }
+
+    // Load files from API
+    async function loadFiles(reset = false) {
+      if (isLoading || !selectedUserId) return;
+      isLoading = true;
+
+      if (reset) {
+        prevPageTokens = [];
+        nextPageToken = null;
+      }
+
+      try {
+        const params = new URLSearchParams();
+        params.append('pageSize', '20');
+        params.append('orderBy', currentSort);
+        params.append('userId', selectedUserId);
+
+        if (nextPageToken) {
+          params.append('pageToken', nextPageToken);
+        }
+
+        let driveQuery = [];
+        if (currentQuery) {
+          driveQuery.push(`name contains '${currentQuery}'`);
+        }
+        if (currentFilter) {
+          if (currentFilter === 'media') {
+            driveQuery.push(`(mimeType contains 'image/' or mimeType contains 'video/')`);
+          } else {
+            driveQuery.push(`mimeType contains '${currentFilter}'`);
+          }
+        }
+        if (driveQuery.length > 0) {
+          params.append('q', driveQuery.join(' and '));
+        }
+
+        const response = await fetch(`/api/drive/files?${params}`);
+        if (!response.ok) throw new Error('Error loading files');
+
+        const data = await response.json();
+        currentFiles = data.files || [];
+        nextPageToken = data.nextPageToken || null;
+
+        renderFileList();
+        updatePagination();
+      } catch (error: any) {
+        console.error('Error:', error);
+        fileListContainer.innerHTML = `
+          <div class="error-state">
+            <i data-lucide="alert-circle" class="error-icon"></i>
+            <h3>Error al cargar archivos</h3>
+            <p>${error.message}</p>
+            <button onclick="window.location.reload()" class="retry-btn">Reintentar</button>
+          </div>
+        `;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      } finally {
+        isLoading = false;
+      }
+    }
+
+    // Render file list
+    function renderFileList() {
+      if (currentFiles.length === 0) {
+        fileListContainer.innerHTML = `
+          <div class="empty-state">
+            <i data-lucide="folder-open" class="empty-icon"></i>
+            <h3>No hay archivos</h3>
+            <p>No se encontraron archivos con los criterios seleccionados</p>
+          </div>
+        `;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        return;
+      }
+
+      const fileGrid = document.createElement('div');
+      fileGrid.className = 'file-grid';
+      fileGrid.id = 'fileGrid';
+
+      currentFiles.forEach((file, index) => {
+        const card = createFileCard(file, index);
+        fileGrid.appendChild(card);
+      });
+
+      fileListContainer.innerHTML = '';
+      fileListContainer.appendChild(fileGrid);
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    // Create file card
+    function createFileCard(file: any, index: number) {
+      const card = document.createElement('div');
+      card.className = 'file-card';
+      card.dataset.fileId = file.id;
+      card.dataset.index = String(index);
+
+      const thumbnail = file.thumbnailLink
+        ? `<img src="${file.thumbnailLink}" alt="${file.name}" class="thumbnail-img" loading="lazy" />`
+        : `<div class="icon-placeholder"><i data-lucide="file" style="width: 48px; height: 48px;"></i></div>`;
+
+      card.innerHTML = `
+        <div class="file-thumbnail">
+          ${thumbnail}
+          <div class="file-overlay">
+            <button class="action-btn preview-btn" data-action="preview" title="Ver">
+              <i data-lucide="eye"></i>
+            </button>
+            <a href="/api/drive/download/${file.id}?userId=${selectedUserId}" class="action-btn download-btn" title="Descargar" download>
+              <i data-lucide="download"></i>
+            </a>
+          </div>
+        </div>
+        <div class="file-info">
+          <div class="file-name" title="${file.name}">${truncateFilename(file.name || 'Sin nombre', 25)}</div>
+          <div class="file-meta">
+            <span class="file-size">${formatFileSize(file.size)}</span>
+          </div>
+          <div class="file-date">${formatDate(file.modifiedTime)}</div>
+        </div>
+      `;
+
+      const previewBtn = card.querySelector('[data-action="preview"]');
+      previewBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openPreview(index);
+      });
+
+      return card;
+    }
+
+    // Update pagination
+    function updatePagination() {
+      const totalFiles = currentFiles.length;
+      paginationText.textContent = `Mostrando ${totalFiles} archivos`;
+
+      prevBtn.disabled = prevPageTokens.length === 0;
+      nextBtn.disabled = !nextPageToken;
+    }
+
+    // Pagination handlers
+    function goToPrevPage() {
+      if (prevPageTokens.length === 0) return;
+      nextPageToken = prevPageTokens.pop()!;
+      loadFiles();
+    }
+
+    function goToNextPage() {
+      if (!nextPageToken) return;
+      if (nextPageToken) {
+        prevPageTokens.push(nextPageToken);
+      }
+      loadFiles();
+    }
+
+    // Preview modal functions
+    function openPreview(index: number) {
+      currentFileIndex = index;
+      const file = currentFiles[index];
+      if (!file) return;
+
+      modalTitle.textContent = file.name || 'Archivo';
+      modalDownload.href = `/api/drive/download/${file.id}?userId=${selectedUserId}`;
+      modalBody.innerHTML = '<div class="loading-spinner"><i data-lucide="loader" class="spinner"></i></div>';
+      modalFooter.innerHTML = `
+        <div class="file-metadata">
+          <div><strong>Tamaño:</strong> ${formatFileSize(file.size)}</div>
+          <div><strong>Modificado:</strong> ${formatDate(file.modifiedTime)}</div>
+        </div>
+      `;
+
+      previewModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+
+      loadPreview(file);
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    async function loadPreview(file: any) {
+      const mimeType = file.mimeType || '';
+      const isImage = mimeType.startsWith('image/');
+      const isVideo = mimeType.startsWith('video/');
+
+      if (isImage) {
+        modalBody.innerHTML = `<img src="/api/drive/preview/${file.id}?userId=${selectedUserId}" alt="${file.name}" class="preview-image" />`;
+      } else if (isVideo) {
+        modalBody.innerHTML = `<video src="/api/drive/preview/${file.id}?userId=${selectedUserId}" controls class="preview-video"></video>`;
+      } else {
+        modalBody.innerHTML = `
+          <div class="no-preview">
+            <i data-lucide="file" class="no-preview-icon"></i>
+            <h3>Vista previa no disponible</h3>
+            <p>Este tipo de archivo no se puede previsualizar</p>
+            <a href="/api/drive/download/${file.id}?userId=${selectedUserId}" class="download-link" download>
+              <i data-lucide="download"></i>
+              Descargar archivo
+            </a>
+          </div>
+        `;
+      }
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function closeModal() {
+      previewModal.style.display = 'none';
+      document.body.style.overflow = '';
+      currentFileIndex = -1;
+    }
+
+    function goToPrevFile() {
+      if (currentFileIndex > 0) {
+        openPreview(currentFileIndex - 1);
+      }
+    }
+
+    function goToNextFile() {
+      if (currentFileIndex < currentFiles.length - 1) {
+        openPreview(currentFileIndex + 1);
+      }
+    }
+
+    // Event listeners
+    searchInput?.addEventListener('input', debounceSearch);
+    filterType?.addEventListener('change', () => {
+      currentFilter = filterType.value;
+      loadFiles(true);
+    });
+    sortOrder?.addEventListener('change', () => {
+      currentSort = sortOrder.value;
+      loadFiles(true);
+    });
+    prevBtn?.addEventListener('click', goToPrevPage);
+    nextBtn?.addEventListener('click', goToNextPage);
+    modalClose?.addEventListener('click', closeModal);
+    modalBackdrop?.addEventListener('click', closeModal);
+    prevFileBtn?.addEventListener('click', goToPrevFile);
+    nextFileBtn?.addEventListener('click', goToNextFile);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (previewModal.style.display === 'flex') {
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowLeft') goToPrevFile();
+        if (e.key === 'ArrowRight') goToNextFile();
+      }
+    });
+
+    // Initialize icons
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  </script>
+
+  <style>
+    .files-container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2rem 3rem;
+      background: #fafafa;
+      min-height: 100vh;
+    }
+
+    .files-view {
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .files-container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</BaseLayout>

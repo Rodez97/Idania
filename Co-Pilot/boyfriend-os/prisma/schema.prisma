@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  partnerProfile    PartnerProfile?
+  events            Event[]
+  journalEntries    JournalEntry[]
+  conversationDrafts ConversationDraft[]
+  conflictCases     ConflictCase[]
+  pushSubscriptions PushSubscription[]
+  notifications     Notification[]
+  moodEntries       MoodEntry[]
+}
+
+model PartnerProfile {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  displayName  String
+  loveLanguages Json     @default("[]")
+  triggers     Json     @default("[]")
+  calmers      Json     @default("[]")
+  preferences  Json     @default("{}")
+  boundaries   Json     @default("[]")
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  dateTime  DateTime
+  category  String   @default("general")
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reminders Reminder[]
+
+  @@index([userId])
+  @@index([dateTime])
+}
+
+model Reminder {
+  id            String  @id @default(cuid())
+  eventId       String
+  offsetMinutes Int
+  channel       String  @default("inApp") // inApp | push
+  enabled       Boolean @default(true)
+  sent          Boolean @default(false)
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+}
+
+enum Mood {
+  ok
+  distant
+  tense
+  great
+}
+
+model MoodEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  mood      Mood
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model JournalEntry {
+  id         String   @id @default(cuid())
+  userId     String
+  happenedAt DateTime @default(now())
+  mood       Mood
+  tags       String[] @default([])
+  what       String
+  feelings   String?
+  outcome    String?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([happenedAt])
+}
+
+model ConversationDraft {
+  id             String   @id @default(cuid())
+  userId         String
+  createdAt      DateTime @default(now())
+  inputContext    String
+  intent         String
+  tone           String
+  outputText     String
+  riskFlags      Json     @default("[]")
+  bridgeQuestion String?
+  nvcVersion     String?
+  used           Boolean  @default(false)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ConflictCase {
+  id               String   @id @default(cuid())
+  userId           String
+  createdAt        DateTime @default(now())
+  topic            String
+  intensity        Int      @default(5)
+  goal             String   @default("repair") // repair | clarify | boundary
+  generatedMessage String?
+  nvcMessage       String?
+  nextSteps        Json     @default("[]")
+  resolutionNotes  String?
+  learnings        Json     @default("[]")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  body      String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+}

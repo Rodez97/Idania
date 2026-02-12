@@ -4,6 +4,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="Nuestra Historia ♡ Idania">
     <header>
+        <a href="/api/auth/logout" class="logout-btn" title="Cerrar sesión">
+            <i data-lucide="log-out"></i>
+        </a>
         <h1>Nuestra Historia <span class="heart"><i data-lucide="heart"></i></span></h1>
         <p class="subtitle">Los momentos que nos definieron</p>
         <a href="/" class="back-link">← Volver al inicio</a>
@@ -34,7 +37,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     Primer Mensaje (Tinder)
                 </h3>
                 <p class="timeline-description">
-                    Después de mucho tiempo, te escribí por Tinder y empezamos a hablar. Fue el inicio de todo esto.
+                    Después de más de 4 años del match, finalmente nos escribimos por primera vez.
+                    A veces el timing es todo, y parece que este era el momento indicado.
                 </p>
             </div>
         </div>
@@ -48,7 +52,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     Primer Mensaje (Instagram)
                 </h3>
                 <p class="timeline-description">
-                    Empezamos a hablar por Instagram también. Las conversaciones se volvieron más frecuentes y fluidas.
+                    Continuamos la conversación en Instagram. Seguimos hablando y conociéndonos
+                    cada vez más. Las conversaciones fluían muy bien.
                 </p>
             </div>
         </div>
@@ -62,7 +67,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     Primera Cita
                 </h3>
                 <p class="timeline-description">
-                    Nos vimos por primera vez en persona. Nervios, risas, y la confirmación de que en persona eras aún mejor.
+                    Nuestra primera cita. Pasamos de mensajes a vernos en persona.
+                    Fue agradable conocernos cara a cara y descubrir que la química también funcionaba en vivo.
                 </p>
                 <div class="timeline-photo">
                     <img src="/images/IMG_5664.jpg" alt="Primera cita" loading="lazy" />
@@ -79,7 +85,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     Primer Beso
                 </h3>
                 <p class="timeline-description">
-                    El momento que hizo que todo se sintiera real. Un beso que cambió las cosas entre nosotros.
+                    Nuestro primer beso. Un momento especial que confirmó que esto que estaba pasando
+                    entre nosotros era real y que valía la pena seguir adelante.
                 </p>
             </div>
         </div>
@@ -93,7 +100,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     Idania conoce al 80% de mi familia
                 </h3>
                 <p class="timeline-description">
-                    Un paso importante. Conociste a casi toda mi familia y encajaste perfectamente con todos.
+                    Un paso importante. Te presenté a la mayor parte de mi familia. Fue bueno que pudieras
+                    conocer a la gente importante en mi vida y ver cómo te recibieron.
                 </p>
             </div>
         </div>
@@ -107,7 +115,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                     Primer Viaje (Bélgica)
                 </h3>
                 <p class="timeline-description">
-                    Nuestro primer viaje juntos a Bélgica. Días increíbles explorando Bruselas, Brujas y Gante, riendo y creando recuerdos inolvidables.
+                    Nuestro primer viaje juntos a Bélgica. Fue genial explorar un nuevo lugar contigo,
+                    compartir experiencias y crear buenos recuerdos juntos.
                 </p>
                 <div class="timeline-photos-grid">
                     <img src="/images/IMG_7186.jpg" alt="Bélgica - Bruselas" loading="lazy" />
@@ -123,10 +132,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <span class="timeline-date">4 de Diciembre, 2025</span>
                 <h3 class="timeline-title">
                     <span class="timeline-icon"><i data-lucide="flower"></i></span>
-                    Primera relación sexual en condiciones
+                    Conexión Íntima Perfecta
                 </h3>
                 <p class="timeline-description">
-                    Un momento de intimidad especial durante nuestro viaje. Compartimos algo hermoso y significativo.
+                    Un momento importante donde nuestra conexión pasó a otro nivel.
+                    Intimidad y confianza, compartiendo algo especial juntos.
                 </p>
             </div>
         </div>
@@ -137,10 +147,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <span class="timeline-date">6 de Diciembre, 2025</span>
                 <h3 class="timeline-title">
                     <span class="timeline-icon"><i data-lucide="heart-handshake"></i></span>
-                    Primera felación
+                    Momento de Entrega Total
                 </h3>
                 <p class="timeline-description">
-                    Seguimos conociendo nuestros cuerpos y disfrutando de nuestra intimidad. Cada momento contigo es especial.
+                    Otro paso más en nuestra intimidad. Seguimos explorando y conociéndonos
+                    en diferentes aspectos de nuestra relación.
                 </p>
             </div>
         </div>
@@ -158,6 +169,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         text-align: center;
         padding: 40px 20px 60px;
         animation: fadeInDown 1s ease;
+        position: relative;
+    }
+
+    .logout-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        color: white;
+        text-decoration: none;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px) rotate(15deg);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .logout-btn :global(svg) {
+        width: 24px;
+        height: 24px;
     }
 
     h1 {

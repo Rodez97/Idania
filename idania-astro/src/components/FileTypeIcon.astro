@@ -1,0 +1,36 @@
+---
+import { getFileIcon, getFileColor, getFileCategory } from '../lib/drive-utils';
+import type { FileCategory } from '../lib/drive-utils';
+
+interface Props {
+  mimeType: string;
+  size?: number;
+  className?: string;
+}
+
+const { mimeType, size = 24, className = '' } = Astro.props;
+
+const category: FileCategory = getFileCategory(mimeType);
+const iconName = getFileIcon(category);
+const color = getFileColor(category);
+---
+
+<span
+  class={`file-icon ${className}`}
+  data-lucide={iconName}
+  style={`color: ${color}; width: ${size}px; height: ${size}px;`}
+></span>
+
+<style>
+  .file-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .file-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+</style>

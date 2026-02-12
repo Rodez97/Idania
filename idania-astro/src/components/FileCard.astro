@@ -1,0 +1,199 @@
+---
+import FileTypeIcon from './FileTypeIcon.astro';
+import { formatFileSize, formatDate, getCategoryLabel, getFileCategory, isPreviewable, truncateFilename } from '../lib/drive-utils';
+
+interface Props {
+  file: {
+    id: string;
+    name?: string;
+    mimeType?: string;
+    size?: string | number;
+    modifiedTime?: string;
+    thumbnailLink?: string;
+    iconLink?: string;
+  };
+  index: number;
+}
+
+const { file, index } = Astro.props;
+const category = getFileCategory(file.mimeType || '');
+const canPreview = isPreviewable(file.mimeType || '');
+---
+
+<div class="file-card" data-file-id={file.id} data-index={index}>
+  <div class="file-thumbnail">
+    {file.thumbnailLink ? (
+      <img src={file.thumbnailLink} alt={file.name || 'File'} class="thumbnail-img" loading="lazy" />
+    ) : (
+      <div class="icon-placeholder">
+        <FileTypeIcon mimeType={file.mimeType || ''} size={48} />
+      </div>
+    )}
+    <div class="file-overlay">
+      <button class="action-btn preview-btn" data-action="preview" title={canPreview ? 'Previsualizar' : 'Ver detalles'}>
+        <i data-lucide={canPreview ? 'eye' : 'info'}></i>
+      </button>
+      <a href={`/api/drive/download/${file.id}`} class="action-btn download-btn" title="Descargar" download>
+        <i data-lucide="download"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="file-info">
+    <div class="file-name" title={file.name}>
+      {truncateFilename(file.name || 'Sin nombre', 25)}
+    </div>
+    <div class="file-meta">
+      <span class="file-badge" style={`background-color: ${getFileCategory(file.mimeType || '') === category ? getCategoryLabel(category) : '#999'}20`}>
+        {getCategoryLabel(category)}
+      </span>
+      <span class="file-size">{formatFileSize(file.size)}</span>
+    </div>
+    <div class="file-date">{formatDate(file.modifiedTime)}</div>
+  </div>
+</div>
+
+<style>
+  .file-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .file-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .file-thumbnail {
+    position: relative;
+    aspect-ratio: 1;
+    background: #f8f9fa;
+    overflow: hidden;
+  }
+
+  .thumbnail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .icon-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  }
+
+  .file-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .file-card:hover .file-overlay {
+    opacity: 1;
+  }
+
+  .action-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    color: #4285f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .action-btn:hover {
+    transform: scale(1.1);
+    background: #4285f4;
+    color: white;
+  }
+
+  .action-btn :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .download-btn {
+    color: #34a853;
+  }
+
+  .download-btn:hover {
+    background: #34a853;
+    color: white;
+  }
+
+  .file-info {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .file-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .file-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+  }
+
+  .file-badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    color: #666;
+  }
+
+  .file-size {
+    color: #999;
+  }
+
+  .file-date {
+    font-size: 0.7rem;
+    color: #999;
+  }
+
+  @media (max-width: 768px) {
+    .file-overlay {
+      opacity: 0.95;
+    }
+
+    .action-btn {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>

@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "drive-ops": "node --loader tsx src/scripts/example-drive-operations.ts"
+  }
+}

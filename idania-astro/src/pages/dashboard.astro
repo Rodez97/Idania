@@ -1,0 +1,255 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSession } from '../lib/session';
+import { dbOperations } from '../lib/db';
+
+// Verificar sesión
+const session = getSession(Astro.cookies);
+if (!session) {
+  return Astro.redirect('/api/auth/login');
+}
+
+// Obtener información del usuario
+const user = await dbOperations.getUserById(session.userId);
+if (!user) {
+  return Astro.redirect('/api/auth/login');
+}
+---
+
+<BaseLayout>
+  <div class="dashboard-container">
+    <header class="dashboard-header">
+      <h1>Dashboard</h1>
+      <div class="user-info">
+        {user.picture && (
+          <img src={user.picture} alt={user.name || user.email} class="user-avatar" />
+        )}
+        <div class="user-details">
+          <p class="user-name">{user.name || user.email}</p>
+          <p class="user-email">{user.email}</p>
+        </div>
+        <form action="/api/auth/logout" method="GET">
+          <button type="submit" class="logout-btn">Cerrar Sesión</button>
+        </form>
+      </div>
+    </header>
+
+    <main class="dashboard-content">
+      <section class="info-section">
+        <h2>🎉 ¡Autenticación exitosa!</h2>
+        <p>Tu cuenta de Google está conectada y los tokens están guardados de forma segura.</p>
+      </section>
+
+      <section class="api-info">
+        <h2>📁 Endpoints Disponibles</h2>
+        <div class="endpoints-list">
+          <div class="endpoint">
+            <h3>GET /api/drive/files</h3>
+            <p>Lista tus archivos de Google Drive</p>
+            <a href="/api/drive/files" target="_blank" class="test-link">Probar →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="token-info">
+        <h2>🔐 Información de Token</h2>
+        <div class="token-details">
+          <p><strong>User ID:</strong> {user.id}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <p>
+            <strong>Token expira:</strong> {new Date(user.token_expiry).toLocaleString('es-ES')}
+          </p>
+          <p class="note">
+            ℹ️ Los tokens se refrescan automáticamente cuando expiran
+          </p>
+        </div>
+      </section>
+
+      <section class="backend-operations">
+        <h2>⚙️ Operaciones Backend</h2>
+        <p>Puedes usar las funciones de <code>src/lib/drive.ts</code> para realizar operaciones programáticas:</p>
+        <ul>
+          <li><code>listFiles(userId)</code> - Listar archivos</li>
+          <li><code>searchFiles(userId, query)</code> - Buscar archivos</li>
+          <li><code>getFile(userId, fileId)</code> - Obtener información de archivo</li>
+          <li><code>downloadFile(userId, fileId)</code> - Descargar archivo</li>
+          <li><code>getStorageInfo(userId)</code> - Información de almacenamiento</li>
+        </ul>
+        <p>Ver <code>GOOGLE_AUTH_SETUP.md</code> para más información.</p>
+      </section>
+    </main>
+  </div>
+
+  <style>
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .dashboard-header {
+      margin-bottom: 3rem;
+    }
+
+    .dashboard-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+      border: 1px solid #e9ecef;
+    }
+
+    .user-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #4285f4;
+    }
+
+    .user-details {
+      flex: 1;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin: 0 0 0.25rem 0;
+      color: #1a1a1a;
+    }
+
+    .user-email {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .logout-btn {
+      padding: 0.6rem 1.5rem;
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .logout-btn:hover {
+      background: #c82333;
+    }
+
+    .dashboard-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .info-section,
+    .api-info,
+    .token-info,
+    .backend-operations {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid #e9ecef;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .info-section h2,
+    .api-info h2,
+    .token-info h2,
+    .backend-operations h2 {
+      margin-top: 0;
+      color: #1a1a1a;
+      font-size: 1.5rem;
+    }
+
+    .endpoints-list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .endpoint {
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #4285f4;
+    }
+
+    .endpoint h3 {
+      margin: 0 0 0.5rem 0;
+      font-family: monospace;
+      color: #4285f4;
+      font-size: 1rem;
+    }
+
+    .endpoint p {
+      margin: 0 0 1rem 0;
+      color: #666;
+    }
+
+    .test-link {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #4285f4;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .test-link:hover {
+      background: #357ae8;
+    }
+
+    .token-details {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    .token-details p {
+      margin: 0.5rem 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    .note {
+      margin-top: 1rem !important;
+      padding: 1rem;
+      background: #e7f3ff;
+      border-radius: 6px;
+      border-left: 4px solid #4285f4;
+      font-family: system-ui, -apple-system, sans-serif !important;
+    }
+
+    .backend-operations ul {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .backend-operations li {
+      margin: 0.5rem 0;
+      color: #666;
+    }
+
+    .backend-operations code {
+      background: #f8f9fa;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: monospace;
+      color: #e83e8c;
+    }
+  </style>
+</BaseLayout>

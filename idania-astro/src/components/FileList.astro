@@ -1,0 +1,176 @@
+---
+import FileCard from './FileCard.astro';
+
+interface FileData {
+  id: string;
+  name?: string;
+  mimeType?: string;
+  size?: string | number;
+  modifiedTime?: string;
+  thumbnailLink?: string;
+  iconLink?: string;
+}
+
+interface Props {
+  files: FileData[];
+  loading?: boolean;
+}
+
+const { files, loading = false } = Astro.props;
+---
+
+<div class="file-list-container">
+  {loading ? (
+    <div class="skeleton-grid">
+      {Array.from({ length: 8 }).map(() => (
+        <div class="skeleton-card">
+          <div class="skeleton-thumbnail"></div>
+          <div class="skeleton-info">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  ) : files.length === 0 ? (
+    <div class="empty-state">
+      <i data-lucide="folder-open" class="empty-icon"></i>
+      <h3>No hay archivos</h3>
+      <p>No se encontraron archivos en tu Google Drive</p>
+    </div>
+  ) : (
+    <div class="file-grid" id="fileGrid">
+      {files.map((file, index) => (
+        <FileCard file={file} index={index} />
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  .file-list-container {
+    width: 100%;
+  }
+
+  .file-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  /* Skeleton loading states */
+  .skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .skeleton-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .skeleton-thumbnail {
+    aspect-ratio: 1;
+    background: linear-gradient(
+      90deg,
+      #f0f0f0 0%,
+      #e0e0e0 50%,
+      #f0f0f0 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-info {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .skeleton-line {
+    height: 12px;
+    background: linear-gradient(
+      90deg,
+      #f0f0f0 0%,
+      #e0e0e0 50%,
+      #f0f0f0 100%
+    );
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-line.short {
+    width: 60%;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+  }
+
+  .empty-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    color: #ccc;
+  }
+
+  .empty-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+
+  .empty-state h3 {
+    font-size: 1.5rem;
+    margin: 0 0 10px 0;
+    color: #1a1a1a;
+  }
+
+  .empty-state p {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .file-grid,
+    .skeleton-grid {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .file-grid,
+    .skeleton-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .file-grid,
+    .skeleton-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+</style>

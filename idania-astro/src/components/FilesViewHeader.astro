@@ -1,0 +1,233 @@
+---
+// Component for the files view header with controls
+---
+
+<header class="files-header">
+  <div class="header-top">
+    <div class="header-left">
+      <button id="backToUsers" class="back-btn">
+        <i data-lucide="arrow-left"></i>
+        Cambiar usuario
+      </button>
+      <div class="current-user-badge">
+        <i data-lucide="user"></i>
+        <span id="currentUserName">Usuario</span>
+      </div>
+    </div>
+    <h1>
+      <i data-lucide="folder"></i>
+      Archivos de Google Drive
+    </h1>
+  </div>
+
+  <div class="controls">
+    <div class="search-box">
+      <i data-lucide="search"></i>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Buscar archivos..."
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="filter-group">
+      <select id="filterType" class="control-select">
+        <option value="media" selected>Fotos y Videos</option>
+        <option value="">Todos los archivos</option>
+        <option value="image/">Solo Imágenes</option>
+        <option value="video/">Solo Videos</option>
+        <option value="application/pdf">PDFs</option>
+        <option value="application/vnd.google-apps.document">Documentos</option>
+        <option value="application/vnd.google-apps.spreadsheet">Hojas de cálculo</option>
+        <option value="application/vnd.google-apps.presentation">Presentaciones</option>
+      </select>
+
+      <select id="sortOrder" class="control-select">
+        <option value="modifiedTime desc">Más reciente</option>
+        <option value="modifiedTime">Más antiguo</option>
+        <option value="name">Nombre (A-Z)</option>
+        <option value="name desc">Nombre (Z-A)</option>
+        <option value="quotaBytesUsed desc">Mayor tamaño</option>
+        <option value="quotaBytesUsed">Menor tamaño</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="pagination-info">
+    <span id="paginationText">Cargando...</span>
+  </div>
+</header>
+
+<style>
+  .files-header {
+    margin-bottom: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .files-header h1 {
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .files-header h1 :global(svg) {
+    width: 32px;
+    height: 32px;
+    color: #4285f4;
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.6rem 1.2rem;
+    background: #f8f9fa;
+    color: #666;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s;
+    border: 1px solid #e9ecef;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  .back-btn:hover {
+    background: #e9ecef;
+    color: #1a1a1a;
+  }
+
+  .back-btn :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  .current-user-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+    color: white;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .current-user-badge :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .search-box {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-box :global(svg) {
+    position: absolute;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+    color: #999;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 0.7rem 0.7rem 0.7rem 40px;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+
+  .search-box input:focus {
+    outline: none;
+    border-color: #4285f4;
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+  }
+
+  .filter-group {
+    display: flex;
+    gap: 8px;
+  }
+
+  .control-select {
+    padding: 0.7rem 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .control-select:hover {
+    border-color: #4285f4;
+  }
+
+  .control-select:focus {
+    outline: none;
+    border-color: #4285f4;
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
+  }
+
+  .pagination-info {
+    margin-top: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .files-header h1 {
+      font-size: 1.5rem;
+    }
+
+    .header-top {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .controls {
+      flex-direction: column;
+    }
+
+    .search-box {
+      min-width: 100%;
+    }
+
+    .filter-group {
+      flex-direction: column;
+    }
+  }
+</style>
