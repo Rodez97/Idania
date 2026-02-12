@@ -64,3 +64,25 @@ export async function getUserInfo(accessToken: string) {
   const { data } = await oauth2.userinfo.get();
   return data;
 }
+
+// Verificar que el token tenga los scopes necesarios
+export async function verifyTokenScopes(accessToken: string): Promise<boolean> {
+  try {
+    const response = await fetch(
+      `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
+    );
+
+    if (!response.ok) {
+      return false;
+    }
+
+    const data = await response.json();
+    const grantedScopes = data.scope.split(' ');
+
+    // Verificar que incluya el scope de drive.readonly
+    return grantedScopes.includes('https://www.googleapis.com/auth/drive.readonly');
+  } catch (error) {
+    console.error('Error verifying token scopes:', error);
+    return false;
+  }
+}

@@ -25,7 +25,7 @@ try {
 
         <div class="carousel-track-container">
             <div class="carousel-track" id="carouselTrack">
-                {photos.map((photo, index) => (
+                {photos.map((photo: any, index: number) => (
                     <div class="carousel-slide" data-index={index}>
                         <img
                             src={`/images/${photo.filename}`}
@@ -60,7 +60,7 @@ try {
     </div>
 
     <div class="carousel-dots" id="carouselDots">
-        {photos.slice(0, 10).map((_, index) => (
+        {photos.slice(0, 10).map((_: any, index: number) => (
             <button
                 class={`dot ${index === 0 ? 'active' : ''}`}
                 data-index={index}
@@ -73,7 +73,7 @@ try {
     </div>
 </div>
 
-<script define:vars={{ photosCount: photos.length }}>
+<script define:vars={{ photosCount: photos.length }} is:inline>
     let currentIndex = 0;
     const track = document.getElementById('carouselTrack');
     const slides = Array.from(track.children);

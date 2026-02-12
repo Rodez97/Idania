@@ -51,7 +51,7 @@ export const GET: APIRoute = async ({ cookies, params, url }) => {
     const stream = await downloadFile(userId, fileId!);
 
     // Configurar headers apropiados para preview
-    return new Response(stream, {
+    return new Response(stream as any, {
       status: 200,
       headers: {
         'Content-Type': fileMetadata.mimeType || 'application/octet-stream',

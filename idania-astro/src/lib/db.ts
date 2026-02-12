@@ -8,9 +8,7 @@ import {
   deleteDoc,
   getDocs,
   query,
-  where,
-  serverTimestamp,
-  Timestamp
+  where
 } from 'firebase/firestore';
 
 // Colección de usuarios en Firestore

@@ -78,22 +78,28 @@ const letters = [
 </div>
 
 <script>
+    // Declarar tipos globales
+    declare const lucide: any;
+
     document.addEventListener('DOMContentLoaded', () => {
         const letterCards = document.querySelectorAll('.letter-card');
 
         letterCards.forEach(card => {
-            const envelope = card.querySelector('.envelope');
+            const envelope = card.querySelector('.envelope') as HTMLElement;
             const closeBtn = card.querySelector('.close-btn');
 
-            envelope.addEventListener('click', (e) => {
-                if (!e.target.closest('.close-btn')) {
-                    envelope.classList.add('opened');
-                }
-            });
+            if (envelope) {
+                envelope.addEventListener('click', (e) => {
+                    const target = e.target as HTMLElement;
+                    if (!target.closest('.close-btn')) {
+                        envelope.classList.add('opened');
+                    }
+                });
+            }
 
             closeBtn?.addEventListener('click', (e) => {
                 e.stopPropagation();
-                envelope.classList.remove('opened');
+                if (envelope) envelope.classList.remove('opened');
             });
         });
 

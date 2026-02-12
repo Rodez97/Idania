@@ -65,7 +65,7 @@ export const GET: APIRoute = async ({ cookies, params, url }) => {
     }
 
     // Configurar headers para descarga
-    return new Response(stream, {
+    return new Response(stream as any, {
       status: 200,
       headers: {
         'Content-Type': mimeType,

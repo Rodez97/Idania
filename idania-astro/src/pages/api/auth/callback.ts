@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getTokensFromCode, getUserInfo } from '../../../lib/google-auth';
+import { getTokensFromCode, getUserInfo, verifyTokenScopes } from '../../../lib/google-auth';
 import { dbOperations } from '../../../lib/db';
 import { createSession } from '../../../lib/session';
 
@@ -12,7 +12,11 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
     // Verificar si hubo un error en la autorización
     if (error) {
       console.error('OAuth error:', error);
-      return redirect('/?error=auth_failed');
+      // Si el usuario rechazó el acceso, redirigir al login con mensaje específico
+      if (error === 'access_denied') {
+        return redirect('/login?error=access_denied');
+      }
+      return redirect('/login?error=auth_failed');
     }
 
     if (!code) {
@@ -25,6 +29,14 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
     if (!tokens.access_token || !tokens.refresh_token) {
       console.error('Missing tokens:', tokens);
       return redirect('/?error=missing_tokens');
+    }
+
+    // Verificar que se hayan otorgado los permisos de Drive
+    const hasDriveAccess = await verifyTokenScopes(tokens.access_token);
+
+    if (!hasDriveAccess) {
+      console.log('User did not grant Drive access');
+      return redirect('/login?error=access_denied');
     }
 
     // Obtener información del usuario
