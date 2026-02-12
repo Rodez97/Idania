@@ -1,14 +1,7 @@
 ---
-// Leer el metadata.json
-const metadataPath = '/images/metadata.json';
-let photos = [];
-
-try {
-    const response = await fetch(`${import.meta.env.SITE || 'http://localhost:4321'}${metadataPath}`);
-    photos = await response.json();
-} catch {
-    console.log('No se pudo cargar metadata.json');
-}
+// Importar el metadata.json directamente
+import photosData from '../../public/images/metadata.json';
+const photos = photosData;
 ---
 
 <div class="carousel-container">
