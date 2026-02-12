@@ -213,9 +213,18 @@ const allUsers = await dbOperations.getAllUsers();
       card.dataset.fileId = file.id;
       card.dataset.index = String(index);
 
-      const thumbnail = file.thumbnailLink
-        ? `<img src="${file.thumbnailLink}" alt="${file.name}" class="thumbnail-img" loading="lazy" />`
-        : `<div class="icon-placeholder"><i data-lucide="file" style="width: 48px; height: 48px;"></i></div>`;
+      const mimeType = file.mimeType || '';
+      const isImage = mimeType.startsWith('image/');
+      const isVideo = mimeType.startsWith('video/');
+
+      let thumbnail;
+      if (isImage || isVideo) {
+        // Usar nuestro endpoint de preview para imágenes y videos
+        thumbnail = `<img src="/api/drive/preview/${file.id}?userId=${selectedUserId}" alt="${file.name}" class="thumbnail-img" loading="lazy" />`;
+      } else {
+        // Usar icono placeholder para otros tipos de archivos
+        thumbnail = `<div class="icon-placeholder"><i data-lucide="file" style="width: 48px; height: 48px;"></i></div>`;
+      }
 
       card.innerHTML = `
         <div class="file-thumbnail">
