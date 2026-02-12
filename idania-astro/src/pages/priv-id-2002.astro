@@ -219,13 +219,13 @@ const allUsers = await dbOperations.getAllUsers();
 
       let thumbnail;
       if (file.thumbnailLink) {
-        // Google Drive proporciona thumbnail - usarlo
-        thumbnail = `<img src="${file.thumbnailLink}" alt="${file.name}" class="thumbnail-img" loading="lazy" crossorigin="anonymous" />`;
+        // Usar thumbnailLink de Google Drive directamente
+        thumbnail = `<img src="${file.thumbnailLink}" alt="${file.name}" class="thumbnail-img" loading="lazy" />`;
       } else if (isImage || isVideo) {
-        // No hay thumbnail de Drive, usar nuestro endpoint de preview
-        thumbnail = `<img src="/api/drive/preview/${file.id}?userId=${selectedUserId}" alt="${file.name}" class="thumbnail-img" loading="lazy" />`;
+        // Fallback: si no hay thumbnail, mostrar icono
+        thumbnail = `<div class="icon-placeholder"><i data-lucide="${isImage ? 'image' : 'video'}" style="width: 48px; height: 48px;"></i></div>`;
       } else {
-        // Usar icono placeholder para archivos sin preview
+        // Icono para otros archivos
         thumbnail = `<div class="icon-placeholder"><i data-lucide="file" style="width: 48px; height: 48px;"></i></div>`;
       }
 
