@@ -218,11 +218,14 @@ const allUsers = await dbOperations.getAllUsers();
       const isVideo = mimeType.startsWith('video/');
 
       let thumbnail;
-      if (isImage || isVideo) {
-        // Usar nuestro endpoint de preview para imágenes y videos
+      if (file.thumbnailLink) {
+        // Google Drive proporciona thumbnail - usarlo
+        thumbnail = `<img src="${file.thumbnailLink}" alt="${file.name}" class="thumbnail-img" loading="lazy" crossorigin="anonymous" />`;
+      } else if (isImage || isVideo) {
+        // No hay thumbnail de Drive, usar nuestro endpoint de preview
         thumbnail = `<img src="/api/drive/preview/${file.id}?userId=${selectedUserId}" alt="${file.name}" class="thumbnail-img" loading="lazy" />`;
       } else {
-        // Usar icono placeholder para otros tipos de archivos
+        // Usar icono placeholder para archivos sin preview
         thumbnail = `<div class="icon-placeholder"><i data-lucide="file" style="width: 48px; height: 48px;"></i></div>`;
       }
 
