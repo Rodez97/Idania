@@ -1,8 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-// Detectar si hay un error en la URL
-const errorParam = Astro.url.searchParams.get('error');
 ---
 
 <BaseLayout title="Iniciar Sesión ♡">
@@ -17,28 +14,9 @@ const errorParam = Astro.url.searchParams.get('error');
             </div>
 
             <div class="login-content">
-                {errorParam === 'access_denied' && (
-                    <div class="error-message">
-                        <div class="error-icon">🔒</div>
-                        <h3>Necesitamos tu permiso</h3>
-                        <p class="error-description">
-                            Para que puedas disfrutar completamente de este espacio, necesitamos acceso de <strong>solo lectura</strong> a tu Google Drive.
-                        </p>
-                        <p class="error-reassurance">
-                            💝 <em>Tranquila, amor</em>: Solo lo usamos para que puedas descargar fotos, videos y recuerdos especiales que subimos para ti.
-                            Nunca modificaremos ni compartiremos nada de tu Drive.
-                        </p>
-                        <p class="error-cta">
-                            ¿Lista para intentarlo de nuevo? 💕
-                        </p>
-                    </div>
-                )}
-
-                {!errorParam && (
-                    <p class="welcome-text">
-                        Este es nuestro espacio especial. Solo para nosotros dos ❤️
-                    </p>
-                )}
+                <p class="welcome-text">
+                    Este es nuestro espacio especial. Solo para nosotros dos ❤️
+                </p>
 
                 <a href="/api/auth/login" class="google-login-btn">
                     <svg class="google-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -165,81 +143,6 @@ const errorParam = Astro.url.searchParams.get('error');
         width: 24px;
         height: 24px;
         flex-shrink: 0;
-    }
-
-    .error-message {
-        background: linear-gradient(135deg, #fff5f5 0%, #ffe5e8 100%);
-        border: 2px solid #ffb3ba;
-        border-radius: 20px;
-        padding: 30px;
-        margin-bottom: 30px;
-        text-align: center;
-        animation: slideDown 0.5s ease;
-    }
-
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .error-icon {
-        font-size: 3em;
-        margin-bottom: 15px;
-        animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-    }
-
-    .error-message h3 {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.8em;
-        color: #d63447;
-        margin: 0 0 15px 0;
-    }
-
-    .error-description {
-        font-size: 1.05em;
-        line-height: 1.6;
-        color: #555;
-        margin-bottom: 15px;
-    }
-
-    .error-description strong {
-        color: #d63447;
-        font-weight: 600;
-    }
-
-    .error-reassurance {
-        font-size: 1em;
-        line-height: 1.7;
-        color: #666;
-        background: white;
-        padding: 20px;
-        border-radius: 15px;
-        margin-bottom: 20px;
-        border-left: 4px solid #d63447;
-    }
-
-    .error-reassurance em {
-        color: #d63447;
-        font-style: normal;
-        font-weight: 600;
-    }
-
-    .error-cta {
-        font-size: 1.1em;
-        color: #c94b4b;
-        font-weight: 600;
-        margin: 0;
     }
 
     @media (max-width: 768px) {
