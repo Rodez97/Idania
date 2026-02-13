@@ -21,14 +21,21 @@ export const SCOPES = [
 ];
 
 // Generar URL de autorización
-export function getAuthUrl() {
+export function getAuthUrl(loginHint?: string) {
   const oauth2Client = getOAuth2Client();
 
-  return oauth2Client.generateAuthUrl({
+  const authUrlParams: any = {
     access_type: 'offline', // Necesario para obtener refresh token
     scope: SCOPES,
     prompt: 'consent', // Forzar prompt para asegurar que obtenemos refresh token
-  });
+  };
+
+  // Si se proporciona un email, pre-seleccionar esa cuenta
+  if (loginHint) {
+    authUrlParams.login_hint = loginHint;
+  }
+
+  return oauth2Client.generateAuthUrl(authUrlParams);
 }
 
 // Intercambiar código por tokens

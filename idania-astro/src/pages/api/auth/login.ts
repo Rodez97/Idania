@@ -1,10 +1,13 @@
 import type { APIRoute } from 'astro';
 import { getAuthUrl } from '../../../lib/google-auth';
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ url }) => {
   try {
+    // Obtener email opcional de la query string
+    const email = url.searchParams.get('email');
+
     // Generar URL de autorización de Google
-    const authUrl = getAuthUrl();
+    const authUrl = getAuthUrl(email || undefined);
 
     // Redirigir al usuario a Google OAuth
     return new Response(null, {
