@@ -1,0 +1,477 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSession } from '../lib/session';
+
+// Verificar sesión
+const session = getSession(Astro.cookies);
+if (!session) {
+  return Astro.redirect('/api/auth/login');
+}
+
+// Lista de regalos (por ahora solo uno)
+const regalos = [
+  {
+    id: 1,
+    titulo: 'Escapada a Nomading Cabin',
+    descripcion: 'Un fin de semana mágico en una cabaña en medio de la naturaleza 🏔️✨',
+    archivo: '/Nomading-regalo-Es-cabins.pdf',
+    fecha: 'Febrero 2026',
+    icono: 'mountain',
+  },
+];
+---
+
+<BaseLayout title="Regalos">
+  <div class="regalos-container">
+    <header class="regalos-header">
+      <div class="header-content">
+        <div class="icon-wrapper">
+          <i data-lucide="gift" class="gift-icon"></i>
+        </div>
+        <h1>Regalos Especiales</h1>
+        <p class="subtitle">Momentos y experiencias para compartir juntos 💝</p>
+      </div>
+    </header>
+
+    <div class="regalos-grid">
+      {regalos.map((regalo) => (
+        <div class="regalo-card" data-regalo-id={regalo.id}>
+          <div class="regalo-header">
+            <div class="regalo-icon">
+              <i data-lucide={regalo.icono}></i>
+            </div>
+            <div class="regalo-meta">
+              <h2>{regalo.titulo}</h2>
+              <p class="regalo-fecha">{regalo.fecha}</p>
+            </div>
+          </div>
+
+          <p class="regalo-descripcion">{regalo.descripcion}</p>
+
+          <div class="regalo-preview">
+            <iframe
+              src={regalo.archivo}
+              title={regalo.titulo}
+              class="pdf-viewer"
+            ></iframe>
+          </div>
+
+          <div class="regalo-actions">
+            <a
+              href={regalo.archivo}
+              download
+              class="btn btn-download"
+            >
+              <i data-lucide="download"></i>
+              Descargar PDF
+            </a>
+            <button
+              class="btn btn-fullscreen"
+              data-pdf-url={regalo.archivo}
+              data-title={regalo.titulo}
+            >
+              <i data-lucide="maximize-2"></i>
+              Ver Completo
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Modal para ver PDF en pantalla completa -->
+    <div id="pdfModal" class="pdf-modal">
+      <div class="modal-header">
+        <h3 id="modalTitle" class="modal-title"></h3>
+        <button class="modal-close" id="modalClose">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <iframe id="modalPdf" class="modal-pdf-viewer"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Declarar tipos globales
+    declare const lucide: any;
+
+    // Modal functionality
+    const modal = document.getElementById('pdfModal') as HTMLElement;
+    const modalTitle = document.getElementById('modalTitle') as HTMLElement;
+    const modalPdf = document.getElementById('modalPdf') as HTMLIFrameElement;
+    const modalClose = document.getElementById('modalClose') as HTMLElement;
+    const fullscreenBtns = document.querySelectorAll('.btn-fullscreen');
+
+    fullscreenBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const pdfUrl = (btn as HTMLElement).dataset.pdfUrl!;
+        const title = (btn as HTMLElement).dataset.title!;
+
+        modalTitle.textContent = title;
+        modalPdf.src = pdfUrl;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    const closeModal = () => {
+      modal.style.display = 'none';
+      modalPdf.src = '';
+      document.body.style.overflow = '';
+    };
+
+    modalClose?.addEventListener('click', closeModal);
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        closeModal();
+      }
+    });
+
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  </script>
+
+  <style>
+    .regalos-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #fffbf0 100%);
+    }
+
+    .regalos-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .icon-wrapper {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #d63447 0%, #e85d6f 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(214, 52, 71, 0.3);
+      animation: bounce 2s ease infinite;
+    }
+
+    .gift-icon {
+      color: white;
+      width: 40px;
+      height: 40px;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #d63447 0%, #e85d6f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: #666;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .regalos-grid {
+      display: grid;
+      gap: 2rem;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .regalo-card {
+      background: white;
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .regalo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    }
+
+    .regalo-header {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+
+    .regalo-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .regalo-icon :global(svg) {
+      width: 32px;
+      height: 32px;
+      color: #d63447;
+    }
+
+    .regalo-meta h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #2d3748;
+    }
+
+    .regalo-fecha {
+      margin: 0;
+      color: #718096;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .regalo-descripcion {
+      color: #4a5568;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .regalo-preview {
+      width: 100%;
+      height: 500px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      background: #f7fafc;
+    }
+
+    .pdf-viewer {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .regalo-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn :global(svg) {
+      width: 20px;
+      height: 20px;
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, #d63447 0%, #e85d6f 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(214, 52, 71, 0.3);
+    }
+
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(214, 52, 71, 0.4);
+    }
+
+    .btn-fullscreen {
+      background: white;
+      color: #2d3748;
+      border: 2px solid #e2e8f0;
+    }
+
+    .btn-fullscreen:hover {
+      background: #f7fafc;
+      border-color: #cbd5e0;
+      transform: translateY(-2px);
+    }
+
+    /* Modal */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      flex-direction: column;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-title {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-close :global(svg) {
+      width: 28px;
+      height: 28px;
+    }
+
+    .modal-body {
+      flex: 1;
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .modal-pdf-viewer {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .regalos-container {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .regalo-card {
+        padding: 1.5rem;
+      }
+
+      .regalo-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .regalo-meta h2 {
+        font-size: 1.5rem;
+      }
+
+      .regalo-preview {
+        height: 400px;
+      }
+
+      .regalo-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .modal-header {
+        padding: 1rem;
+      }
+
+      .modal-title {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</BaseLayout>
