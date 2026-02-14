@@ -15,9 +15,14 @@ import OpenWhen from '../components/OpenWhen.astro';
             </a>
             <h1>Idania <span class="heart"><i data-lucide="heart"></i></span></h1>
             <p class="subtitle">Un espacio creado especialmente para ti, en tu color favorito</p>
-            <a href="/timeline" class="timeline-link">
-                <i data-lucide="sparkles"></i> Ver Nuestra Historia <i data-lucide="sparkles"></i>
-            </a>
+            <div class="header-links">
+                <a href="/timeline" class="nav-link timeline-link">
+                    <i data-lucide="sparkles"></i> Ver Nuestra Historia <i data-lucide="sparkles"></i>
+                </a>
+                <a href="/regalos" class="nav-link regalos-link">
+                    <i data-lucide="gift"></i> Regalos Especiales <i data-lucide="gift"></i>
+                </a>
+            </div>
         </header>
 
         <section class="section">
@@ -183,11 +188,18 @@ import OpenWhen from '../components/OpenWhen.astro';
         font-weight: 300;
     }
 
-    .timeline-link {
+    .header-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .nav-link {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        margin-top: 30px;
         padding: 15px 40px;
         background: rgba(255, 255, 255, 0.2);
         color: white;
@@ -200,15 +212,25 @@ import OpenWhen from '../components/OpenWhen.astro';
         font-weight: 600;
     }
 
-    .timeline-link:hover {
+    .nav-link:hover {
         background: rgba(255, 255, 255, 0.3);
         transform: translateY(-3px);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    .timeline-link :global(svg) {
+    .nav-link :global(svg) {
         width: 20px;
         height: 20px;
+    }
+
+    .regalos-link {
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 182, 193, 0.3));
+        border-color: rgba(255, 215, 0, 0.5);
+    }
+
+    .regalos-link:hover {
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 182, 193, 0.4));
+        border-color: rgba(255, 215, 0, 0.7);
     }
 
     .section {
@@ -292,6 +314,47 @@ import OpenWhen from '../components/OpenWhen.astro';
         to {
             opacity: 1;
             transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+        }
+
+        .header-links {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-link {
+            width: 100%;
+            justify-content: center;
+            font-size: 1em;
+            padding: 12px 30px;
+        }
+
+        .section {
+            padding: 30px 20px;
+            margin: 20px 0;
+        }
+
+        .section h2 {
+            font-size: 2em;
+        }
+
+        .section p {
+            font-size: 1em;
+            text-align: left;
+        }
+
+        .quote {
+            font-size: 1.2em;
+            padding: 15px;
         }
     }
 </style>
