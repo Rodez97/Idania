@@ -50,7 +50,7 @@ const allUsers = await dbOperations.getAllUsers();
     let nextPageToken: string | null = null;
     let prevPageTokens: string[] = [];
     let currentQuery = '';
-    let currentFilter = 'media';
+    let currentFilter = ''; // Mostrar todos por defecto
     let currentSort = 'modifiedTime desc';
     let isLoading = false;
     let currentFileIndex = -1;
@@ -138,6 +138,10 @@ const allUsers = await dbOperations.getAllUsers();
         }
 
         let driveQuery = [];
+
+        // IMPORTANTE: Siempre excluir archivos en papelera
+        driveQuery.push('trashed=false');
+
         if (currentQuery) {
           driveQuery.push(`name contains '${currentQuery}'`);
         }
@@ -148,9 +152,8 @@ const allUsers = await dbOperations.getAllUsers();
             driveQuery.push(`mimeType contains '${currentFilter}'`);
           }
         }
-        if (driveQuery.length > 0) {
-          params.append('q', driveQuery.join(' and '));
-        }
+
+        params.append('q', driveQuery.join(' and '));
 
         const response = await fetch(`/api/drive/files?${params}`);
         if (!response.ok) throw new Error('Error loading files');
@@ -158,6 +161,11 @@ const allUsers = await dbOperations.getAllUsers();
         const data = await response.json();
         currentFiles = data.files || [];
         nextPageToken = data.nextPageToken || null;
+
+        // Advertir si la búsqueda está incompleta
+        if (data.incompleteSearch) {
+          console.warn('⚠️ Búsqueda incompleta: algunos archivos pueden no estar mostrados');
+        }
 
         renderFileList();
         updatePagination();
