@@ -22,6 +22,9 @@ export interface User {
   access_token: string;
   refresh_token: string;
   token_expiry: number;
+  photos_access_token?: string;
+  photos_refresh_token?: string;
+  photos_token_expiry?: number;
   created_at: number;
   updated_at: number;
 }
@@ -155,6 +158,43 @@ export const dbOperations = {
     } catch (error) {
       console.error('Error getting all users:', error);
       return [];
+    }
+  },
+
+  // Actualizar tokens de Google Photos
+  updatePhotosTokens: async (
+    id: string,
+    accessToken: string,
+    refreshToken: string,
+    expiryTime: number
+  ) => {
+    try {
+      const userRef = doc(db, USERS_COLLECTION, id);
+      await updateDoc(userRef, {
+        photos_access_token: accessToken,
+        photos_refresh_token: refreshToken,
+        photos_token_expiry: expiryTime,
+        updated_at: Date.now(),
+      });
+    } catch (error) {
+      console.error('Error updating photos tokens:', error);
+      throw error;
+    }
+  },
+
+  // Revocar acceso a Google Photos
+  revokePhotosAccess: async (id: string) => {
+    try {
+      const userRef = doc(db, USERS_COLLECTION, id);
+      await updateDoc(userRef, {
+        photos_access_token: null,
+        photos_refresh_token: null,
+        photos_token_expiry: null,
+        updated_at: Date.now(),
+      });
+    } catch (error) {
+      console.error('Error revoking photos access:', error);
+      throw error;
     }
   },
 };

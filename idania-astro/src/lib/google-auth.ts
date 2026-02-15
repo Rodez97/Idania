@@ -13,11 +13,31 @@ export function getOAuth2Client() {
   return new google.auth.OAuth2(clientId, clientSecret, redirectUri);
 }
 
+// Configuración del cliente OAuth2 para Google Photos
+export function getPhotosOAuth2Client() {
+  const clientId = import.meta.env.GOOGLE_CLIENT_ID;
+  const clientSecret = import.meta.env.GOOGLE_CLIENT_SECRET;
+  const redirectUri = `${import.meta.env.PUBLIC_BASE_URL}/api/auth/photos-callback`;
+
+  if (!clientId || !clientSecret) {
+    throw new Error('Missing Google OAuth credentials. Please set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env');
+  }
+
+  return new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+}
+
 // Scopes necesarios para Google Drive readonly
 export const SCOPES = [
   'https://www.googleapis.com/auth/userinfo.profile',
   'https://www.googleapis.com/auth/userinfo.email',
   'https://www.googleapis.com/auth/drive.readonly',
+];
+
+// Scopes necesarios para Google Photos readonly
+export const PHOTOS_SCOPES = [
+  'https://www.googleapis.com/auth/userinfo.profile',
+  'https://www.googleapis.com/auth/userinfo.email',
+  'https://www.googleapis.com/auth/photoslibrary.readonly',
 ];
 
 // Generar URL de autorización
@@ -92,4 +112,29 @@ export async function verifyTokenScopes(accessToken: string): Promise<boolean> {
     console.error('Error verifying token scopes:', error);
     return false;
   }
+}
+
+// Generar URL de autorización para Google Photos
+export function getPhotosAuthUrl(loginHint?: string) {
+  const oauth2Client = getPhotosOAuth2Client();
+
+  const authUrlParams: any = {
+    access_type: 'offline', // Necesario para obtener refresh token
+    scope: PHOTOS_SCOPES,
+    prompt: 'consent', // Forzar prompt para asegurar que obtenemos refresh token
+  };
+
+  // Si se proporciona un email, pre-seleccionar esa cuenta
+  if (loginHint) {
+    authUrlParams.login_hint = loginHint;
+  }
+
+  return oauth2Client.generateAuthUrl(authUrlParams);
+}
+
+// Intercambiar código por tokens para Google Photos
+export async function getPhotosTokensFromCode(code: string) {
+  const oauth2Client = getPhotosOAuth2Client();
+  const { tokens } = await oauth2Client.getToken(code);
+  return tokens;
 }
