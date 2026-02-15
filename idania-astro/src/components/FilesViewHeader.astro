@@ -20,6 +20,15 @@
     </h1>
   </div>
 
+  <div class="breadcrumbs-container">
+    <div id="breadcrumbs" class="breadcrumbs">
+      <button class="breadcrumb-item active" data-index="0">
+        <i data-lucide="home"></i>
+        <span>Mi unidad</span>
+      </button>
+    </div>
+  </div>
+
   <div class="controls">
     <div class="search-box">
       <i data-lucide="search"></i>
@@ -206,6 +215,56 @@
     margin-top: 1rem;
     color: #666;
     font-size: 0.9rem;
+  }
+
+  .breadcrumbs-container {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+  }
+
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.5rem 0.8rem;
+    background: transparent;
+    color: #666;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .breadcrumb-item:hover:not(.active) {
+    background: #f8f9fa;
+    color: #4285f4;
+  }
+
+  .breadcrumb-item.active {
+    background: #e8f0fe;
+    color: #4285f4;
+    font-weight: 500;
+    cursor: default;
+  }
+
+  .breadcrumb-item :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+
+  .breadcrumb-separator {
+    color: #ccc;
+    width: 16px;
+    height: 16px;
   }
 
   @media (max-width: 768px) {
