@@ -54,6 +54,7 @@ const allUsers = await dbOperations.getAllUsers();
     let currentSort = 'modifiedTime desc';
     let isLoading = false;
     let currentFileIndex = -1;
+    let showTrashed = false;
 
     // Folder navigation state
     let currentFolderId: string | null = null;
@@ -143,15 +144,16 @@ const allUsers = await dbOperations.getAllUsers();
 
         let driveQuery = [];
 
-        // IMPORTANTE: Siempre excluir archivos en papelera
-        driveQuery.push('trashed=false');
+        // Filtrar por estado de papelera
+        driveQuery.push(`trashed=${showTrashed}`);
 
-        // Filtrar por carpeta actual
-        if (currentFolderId) {
-          driveQuery.push(`'${currentFolderId}' in parents`);
-        } else {
-          // Si no hay carpeta, mostrar elementos de la raíz
-          driveQuery.push(`'root' in parents`);
+        // Filtrar por carpeta (solo cuando no estamos viendo la papelera)
+        if (!showTrashed) {
+          if (currentFolderId) {
+            driveQuery.push(`'${currentFolderId}' in parents`);
+          } else {
+            driveQuery.push(`'root' in parents`);
+          }
         }
 
         if (currentQuery) {
@@ -467,6 +469,11 @@ const allUsers = await dbOperations.getAllUsers();
     });
     sortOrder?.addEventListener('change', () => {
       currentSort = sortOrder.value;
+      loadFiles(true);
+    });
+    const showTrashedCheckbox = document.getElementById('showTrashed') as HTMLInputElement;
+    showTrashedCheckbox?.addEventListener('change', () => {
+      showTrashed = showTrashedCheckbox.checked;
       loadFiles(true);
     });
     prevBtn?.addEventListener('click', goToPrevPage);
